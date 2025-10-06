@@ -14,12 +14,20 @@ init:
     @echo "🚀 Initializing Python project from template..."
     @echo ""
     @read -p "Project name (snake_case): " PROJECT_NAME; \
-    read -p "Project description: " PROJECT_DESC; \
+    if [[ -z "$PROJECT_NAME" ]]; then \
+        echo -e "\033[1;31m\033[1merror\033[0m\033[1m:\033[0m \033[1mProject name cannot be empty.\033[0m"; \
+        exit 1; \
+    fi; \
+    read -p "Project description (default: none): " PROJECT_DESC; \
     read -p "Python version (default: 3.12): " PYTHON_VER; \
     PYTHON_VER=${PYTHON_VER:-3.12}; \
-    read -p "Author name: " AUTHOR_NAME; \
-    read -p "Author email: " AUTHOR_EMAIL; \
+    read -p "Author name (default: none): " AUTHOR_NAME; \
+    read -p "Author email (default: none): " AUTHOR_EMAIL; \
     read -p "GitHub username: " GITHUB_USER; \
+    if [[ -z "$GITHUB_USER" ]]; then \
+        echo -e "\033[1;31m\033[1merror\033[0m\033[1m:\033[0m \033[1mGitHub username cannot be empty.\033[0m"; \
+        exit 1; \
+    fi; \
     echo ""; \
     echo "📝 Updating project files..."; \
     PROJECT_MODULE=`echo "$PROJECT_NAME" | tr '-' '_'`; \
