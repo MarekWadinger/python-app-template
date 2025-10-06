@@ -42,9 +42,6 @@ Repository = "https://github.com/MarekWadinger/python-project-template"
 Documentation = "https://github.com/MarekWadinger/python-project-template#readme"
 "Bug Tracker" = "https://github.com/MarekWadinger/python-project-template/issues"
 
-[project.scripts]
-python-project-template = "python_project_template.main:main"
-
 [tool.pytest.ini_options]
 minversion = "8.0"
 addopts = "-ra -q --strict-markers --strict-config"

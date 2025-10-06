@@ -19,8 +19,8 @@ init:
     read -p "GitHub username: " GITHUB_USER; \
     echo ""; \
     echo "📝 Updating project files..."; \
-    PROJECT_MODULE=$$(echo $$PROJECT_NAME | tr '-' '_'); \
-    for file in pyproject.toml README.md src/python_project_template/__init__.py src/python_project_template/main.py tests/test_python_project_template.py .github/workflows/*.yml .github/ISSUE_TEMPLATE/*.md .github/pull_request_template.md; do \
+    PROJECT_MODULE=`echo "$$PROJECT_NAME" | tr '-' '_'`; \
+    for file in pyproject.toml README.md src/python_app_template/__init__.py src/python_app_template/main.py tests/test_python_app_template.py .github/workflows/*.yml .github/ISSUE_TEMPLATE/*.md .github/pull_request_template.md; do \
         if [ -f "$$file" ]; then \
             echo "Updating $$file..."; \
             sed -i.bak "s|python-project-template|$$PROJECT_NAME|g" "$$file"; \
@@ -28,7 +28,7 @@ init:
             sed -i.bak "s|your.email@example.com|$$AUTHOR_EMAIL|g" "$$file"; \
             sed -i.bak "s|yourusername|$$GITHUB_USER|g" "$$file"; \
             sed -i.bak "s|A comprehensive Python project template with pre-commit, CI/CD, and automated setup|$$PROJECT_DESC|g" "$$file"; \
-            sed -i.bak "s|python_project_template|$$PROJECT_MODULE|g" "$$file"; \
+            sed -i.bak "s|python_app_template|$$PROJECT_MODULE|g" "$$file"; \
             rm "$$file.bak"; \
         fi; \
     done; \
@@ -39,10 +39,10 @@ init:
     sed -i.bak 's/<!-- PROJECT_README_END -->//g' README.md; \
     rm README.md.bak; \
     rm -f TEMPLATE_USAGE.md; \
-    if [ "$$PROJECT_MODULE" != "python_project_template" ]; then \
+    if [ "$$PROJECT_MODULE" != "python_app_template" ]; then \
         echo "📁 Renaming module directories..."; \
-        mv src/python_project_template src/$$PROJECT_MODULE; \
-        mv tests/test_python_project_template.py tests/test_$$PROJECT_MODULE.py; \
+        mv src/python_app_template src/$$PROJECT_MODULE; \
+        mv tests/test_python_app_template.py tests/test_$$PROJECT_MODULE.py; \
     fi; \
     echo ""; \
     echo "✅ Project initialized successfully!"; \
@@ -83,7 +83,7 @@ format:
 security:
     @echo "🔒 Running security checks..."
     uv run bandit -r src/ -f json -o bandit-report.json
-    uv run safety check
+    uv run safety scan
 
 clean:
     @echo "🧹 Cleaning build artifacts..."

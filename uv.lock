@@ -790,7 +790,6 @@ source = { virtual = "." }
 dev = [
     { name = "commitizen" },
     { name = "pre-commit" },
-    { name = "python-project-template" },
 ]
 format = [
     { name = "ruff" },
@@ -813,7 +812,6 @@ test = [
 dev = [
     { name = "commitizen", specifier = ">=4.9.1" },
     { name = "pre-commit", specifier = ">=3.0.0" },
-    { name = "python-project-template", virtual = "." },
 ]
 format = [{ name = "ruff", specifier = ">=0.13.3" }]
 lint = [{ name = "ty", specifier = ">=0.0.1a21" }]

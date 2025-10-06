@@ -90,7 +90,6 @@ just check         # Run all checks (lint, test, security)
 <!-- TEMPLATE_USAGE_END -->
 
 <!-- PROJECT_README_START -->
-# python-project-template
 
 A comprehensive Python app template with pre-commit, CI/CD, and automated setup.
 
@@ -199,7 +198,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 If you use this software in your research, please cite:
 
 ```bibtex
-@software{python_project_template,
+@software{python_app_template,
   title = {python-project-template: A comprehensive Python project template},
   author = {Your Name},
   url = {https://github.com/yourusername/python-project-template},
@@ -215,4 +214,3 @@ If you encounter any issues or have questions:
 - Open an [issue](https://github.com/yourusername/python-project-template/issues) on GitHub
 - Check the existing documentation and examples
 - Review the test cases for usage patterns
-<!-- PROJECT_README_END -->
