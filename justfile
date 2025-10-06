@@ -1,6 +1,9 @@
 # Task runner for python-project-template
 # Requires `just` (https://github.com/casey/just) and `uv`
 
+# Use bash for interactive prompts and bashisms
+set shell := ["bash", "-eu", "-o", "pipefail", "-c"]
+
 default:
     @just --list
 
@@ -13,36 +16,36 @@ init:
     @read -p "Project name (snake_case): " PROJECT_NAME; \
     read -p "Project description: " PROJECT_DESC; \
     read -p "Python version (default: 3.12): " PYTHON_VER; \
-    PYTHON_VER=$${PYTHON_VER:-3.12}; \
+    PYTHON_VER=${PYTHON_VER:-3.12}; \
     read -p "Author name: " AUTHOR_NAME; \
     read -p "Author email: " AUTHOR_EMAIL; \
     read -p "GitHub username: " GITHUB_USER; \
     echo ""; \
     echo "📝 Updating project files..."; \
-    PROJECT_MODULE=`echo "$$PROJECT_NAME" | tr '-' '_'`; \
+    PROJECT_MODULE=`echo "$PROJECT_NAME" | tr '-' '_'`; \
     for file in pyproject.toml README.md src/python_app_template/__init__.py src/python_app_template/main.py tests/test_python_app_template.py .github/workflows/*.yml .github/ISSUE_TEMPLATE/*.md .github/pull_request_template.md; do \
-        if [ -f "$$file" ]; then \
-            echo "Updating $$file..."; \
-            sed -i.bak "s|python-project-template|$$PROJECT_NAME|g" "$$file"; \
-            sed -i.bak "s|Your Name|$$AUTHOR_NAME|g" "$$file"; \
-            sed -i.bak "s|your.email@example.com|$$AUTHOR_EMAIL|g" "$$file"; \
-            sed -i.bak "s|yourusername|$$GITHUB_USER|g" "$$file"; \
-            sed -i.bak "s|A comprehensive Python project template with pre-commit, CI/CD, and automated setup|$$PROJECT_DESC|g" "$$file"; \
-            sed -i.bak "s|python_app_template|$$PROJECT_MODULE|g" "$$file"; \
-            rm "$$file.bak"; \
+        if [ -f "$file" ]; then \
+            echo "Updating $file..."; \
+            sed -i.bak "s|python-project-template|$PROJECT_NAME|g" "$file"; \
+            sed -i.bak "s|Your Name|$AUTHOR_NAME|g" "$file"; \
+            sed -i.bak "s|your.email@example.com|$AUTHOR_EMAIL|g" "$file"; \
+            sed -i.bak "s|yourusername|$GITHUB_USER|g" "$file"; \
+            sed -i.bak "s|A comprehensive Python project template with pre-commit, CI/CD, and automated setup|$PROJECT_DESC|g" "$file"; \
+            sed -i.bak "s|python_app_template|$PROJECT_MODULE|g" "$file"; \
+            rm "$file.bak"; \
         fi; \
     done; \
-    echo "$$PYTHON_VER" > .python-version; \
+    echo "$PYTHON_VER" > .python-version; \
     echo "📝 Cleaning up README.md..."; \
     sed -i.bak '/<!-- TEMPLATE_USAGE_START -->/,/<!-- TEMPLATE_USAGE_END -->/d' README.md; \
     sed -i.bak 's/<!-- PROJECT_README_START -->//g' README.md; \
     sed -i.bak 's/<!-- PROJECT_README_END -->//g' README.md; \
     rm README.md.bak; \
     rm -f TEMPLATE_USAGE.md; \
-    if [ "$$PROJECT_MODULE" != "python_app_template" ]; then \
+    if [ "$PROJECT_MODULE" != "python_app_template" ]; then \
         echo "📁 Renaming module directories..."; \
-        mv src/python_app_template src/$$PROJECT_MODULE; \
-        mv tests/test_python_app_template.py tests/test_$$PROJECT_MODULE.py; \
+        mv src/python_app_template src/$PROJECT_MODULE; \
+        mv tests/test_python_app_template.py tests/test_$PROJECT_MODULE.py; \
     fi; \
     echo ""; \
     echo "✅ Project initialized successfully!"; \
