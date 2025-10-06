@@ -54,6 +54,8 @@ init:
     echo "1. just dev-install"; \
     echo "2. just install-hooks"; \
     echo "3. Start coding!"
+    git add .
+    git commit -m 'chore: initialize project from template'
 
 install:
     @echo "📦 Installing project dependencies..."
