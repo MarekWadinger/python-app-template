@@ -1,0 +1,79 @@
+# https://pre-commit.com
+default_install_hook_types:
+  - pre-commit
+  - post-checkout
+  - post-merge
+  - post-rewrite
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: debug-statements #Check for debugger imports and breakpoint() in python files
+      - id: check-ast #Simply check whether files parse as valid python
+      - id: fix-byte-order-marker #removes UTF-8 byte order marker
+      - id: check-json
+      - id: detect-private-key # detect-private-key is not in repo
+      - id: check-yaml
+      - id: check-added-large-files
+      - id: check-shebang-scripts-are-executable
+      - id: check-case-conflict #Check for files with names that would conflict on a case-insensitive filesystem like MacOS HFS+ or Windows FAT
+      - id: end-of-file-fixer #Makes sure files end in a newline and only a newline
+      - id: trailing-whitespace
+      - id: mixed-line-ending
+  - repo: local
+    hooks:
+      - id: ruff
+        name: ruff
+        entry: ruff check
+        language: python
+        args: [--fix, --exit-non-zero-on-fix, --line-length=120]
+        types_or: [python, pyi, jupyter]
+      - id: ruff-format
+        name: ruff-format
+        entry: ruff format
+        language: python
+        args: [--line-length=120]
+        types_or: [python, pyi, jupyter]
+  - repo: https://github.com/asottile/blacken-docs
+    rev: 1.19.1
+    hooks:
+      - id: blacken-docs #blacken-docs is a pre-commit hook that runs to check for issues in the docs
+        additional_dependencies: [black]
+  - repo: local
+    hooks:
+      - id: ty
+        name: ty check
+        entry: uvx ty check . --ignore unresolved-import
+        language: python
+        stages:
+          - "pre-push"
+          - "pre-merge-commit"
+  - repo: local
+    hooks:
+      - id: pytest-check
+        name: pytest-check
+        language: system
+        types: [python]
+        entry: env ENVIRONMENT=test pytest
+        pass_filenames: false
+        always_run: false
+        args: [--doctest-modules]
+        stages: [pre-push]
+  - repo: https://github.com/roy-ht/pre-commit-jupyter
+    rev: v1.2.1
+    hooks:
+      - id: jupyter-notebook-cleanup
+        args:
+          - --remove-kernel-metadata
+          - --pin-patterns
+          - "[pin];[donotremove]"
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.8.3
+    hooks:
+      - id: commitizen
+        stages: [commit-msg]
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.8.12
+    hooks:
+      - id: uv-sync
+        args: [--frozen]

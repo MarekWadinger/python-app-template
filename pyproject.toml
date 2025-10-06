@@ -1,0 +1,87 @@
+[project]
+name = "python-project-template"
+version = "0.1.0"
+description = "A comprehensive Python project template with pre-commit, CI/CD, and automated setup"
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [
+    {name = "Marek Wadinger", email = "marekwadinger5506@gmail.com"},
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+
+[dependency-groups]
+dev = [
+    "commitizen>=4.9.1",
+    "pre-commit>=3.0.0",
+]
+lint = [
+    "ty>=0.0.1a21",
+]
+test = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.0.0",
+]
+security = [
+    "bandit>=1.7.0",
+    "safety>=2.0.0",
+]
+format = [
+    "ruff>=0.13.3",
+]
+
+[project.urls]
+Homepage = "https://github.com/MarekWadinger/python-project-template"
+Repository = "https://github.com/MarekWadinger/python-project-template"
+Documentation = "https://github.com/MarekWadinger/python-project-template#readme"
+"Bug Tracker" = "https://github.com/MarekWadinger/python-project-template/issues"
+
+[project.scripts]
+python-project-template = "python_project_template.main:main"
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = "-ra -q --strict-markers --strict-config"
+testpaths = ["tests"]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+]
+filterwarnings = [
+    "error",
+    "ignore::UserWarning",
+    "ignore::DeprecationWarning",
+]
+
+[tool.coverage.run]
+source = ["src"]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "*/__pycache__/*",
+    "*/.*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
+
+[tool.bandit]
+exclude_dirs = ["tests", "test_*"]
+skips = ["B101", "B601"]
