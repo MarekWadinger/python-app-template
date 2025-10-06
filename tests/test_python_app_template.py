@@ -1,8 +1,8 @@
-"""Tests for the python_project_template application."""
+"""Tests for the python_app_template application."""
 
 import pytest
 
-from python_project_template.main import main
+from python_app_template.main import main
 
 
 def test_main_function() -> None:
