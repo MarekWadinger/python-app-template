@@ -37,6 +37,7 @@ init: ## Initialize a new project from this template
 		echo -e "\033[1;31m\033[1merror\033[0m\033[1m:\033[0m \033[1mGitHub username cannot be empty.\033[0m"; \
 		exit 1; \
 	fi; \
+	read -p "Set up Codecov coverage upload? (Y/n): " CODECOV; \
 	echo ""; \
 	echo "📝 Updating project files..."; \
 	PROJECT_MODULE=`echo "$$PROJECT_NAME" | tr '-' '_'`; \
@@ -66,6 +67,13 @@ init: ## Initialize a new project from this template
 	rm README.md.bak; \
 	cat -s README.md > README.md.tmp && mv README.md.tmp README.md; \
 	rm -f TEMPLATE_USAGE.md; \
+	if [[ "$$CODECOV" =~ ^[Nn] ]]; then \
+		echo "📊 Removing Codecov integration..."; \
+		sed -i.bak '/- name: Upload coverage to Codecov/,/fail_ci_if_error: false/d' .github/workflows/ci.yml; \
+		rm -f .github/workflows/ci.yml.bak; \
+		sed -i.bak '/codecov\.io/d' README.md; \
+		rm -f README.md.bak; \
+	fi; \
 	if [ "$$PROJECT_MODULE" != "python_app_template" ]; then \
 		echo "📁 Renaming module directories..."; \
 		mv src/python_app_template src/$$PROJECT_MODULE; \
@@ -102,6 +110,11 @@ init: ## Initialize a new project from this template
 		echo "Next steps:"; \
 		echo "1. make install"; \
 		echo "2. Start coding!"; \
+	fi; \
+	if [[ ! "$$CODECOV" =~ ^[Nn] ]]; then \
+		echo ""; \
+		echo "📊 Codecov: enable this repo at https://app.codecov.io and add the"; \
+		echo "   CODECOV_TOKEN repository secret so coverage uploads work."; \
 	fi
 	git add -A
 	git commit -m 'chore: initialize project from template'
