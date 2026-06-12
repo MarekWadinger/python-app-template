@@ -2,6 +2,12 @@
 
 This changelog is maintained automatically by [commitizen](https://commitizen-tools.github.io/commitizen/) on version bumps.
 
+## v0.2.6 (2026-06-12)
+
+### Refactor
+
+- **ci**: invoke just recipes instead of raw uv commands (#12)
+
 ## v0.2.5 (2026-06-12)
 
 ### Fix

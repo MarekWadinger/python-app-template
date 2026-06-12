@@ -714,7 +714,7 @@ wheels = [
 
 [[package]]
 name = "python-project-template"
-version = "0.2.5"
+version = "0.2.6"
 source = { editable = "." }
 
 [package.dev-dependencies]
