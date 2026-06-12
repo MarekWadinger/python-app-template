@@ -31,7 +31,7 @@ init:
     echo ""; \
     echo "📝 Updating project files..."; \
     PROJECT_MODULE=`echo "$PROJECT_NAME" | tr '-' '_'`; \
-    for file in pyproject.toml README.md src/python_app_template/__init__.py src/python_app_template/main.py tests/test_python_app_template.py .github/workflows/*.yml .github/ISSUE_TEMPLATE/*.md .github/pull_request_template.md; do \
+    for file in pyproject.toml README.md src/python_app_template/__init__.py src/python_app_template/main.py tests/__init__.py tests/test_python_app_template.py .github/workflows/*.yml .github/ISSUE_TEMPLATE/*.md .github/pull_request_template.md; do \
         if [ -f "$file" ]; then \
             echo "Updating $file..."; \
             sed -i.bak "s|python-project-template|$PROJECT_NAME|g" "$file"; \
@@ -44,6 +44,12 @@ init:
         fi; \
     done; \
     echo "$PYTHON_VER" > .python-version; \
+    echo "📝 Resetting version and changelog..."; \
+    sed -i.bak 's|^version = ".*"|version = "0.1.0"|' pyproject.toml; \
+    rm pyproject.toml.bak; \
+    sed -i.bak 's|^__version__ = ".*"|__version__ = "0.1.0"|' src/python_app_template/__init__.py; \
+    rm src/python_app_template/__init__.py.bak; \
+    printf '# Changelog\n\nThis changelog is maintained automatically by [commitizen](https://commitizen-tools.github.io/commitizen/) on version bumps.\n' > CHANGELOG.md; \
     echo "📝 Cleaning up README.md..."; \
     sed -i.bak '/<!-- TEMPLATE_USAGE_START -->/,/<!-- TEMPLATE_USAGE_END -->/d' README.md; \
     sed -i.bak 's/<!-- PROJECT_README_START -->//g' README.md; \
