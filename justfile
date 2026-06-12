@@ -87,11 +87,16 @@ test-cov:
 
 lint:
     @echo "🔍 Running linting..."
-    uv run ty check .
+    uv run ruff check .
+
+typecheck:
+    @echo "🔎 Running type checks..."
+    uv run ty check . --ignore unresolved-import
 
 format:
     @echo "🎨 Formatting code..."
     uv run ruff format .
+    uv run ruff check --fix .
 
 security:
     @echo "🔒 Running security checks..."
@@ -107,6 +112,9 @@ clean:
     rm -rf htmlcov/
     rm -rf .pytest_cache/
     rm -rf .mypy_cache/
+    rm -rf .ruff_cache/
+    rm -f coverage.xml
+    rm -f bandit-report.json
     find . -type d -name __pycache__ -delete
     find . -type f -name "*.pyc" -delete
 
@@ -114,7 +122,18 @@ build:
     @echo "🏗️  Building package..."
     uv build
 
+bump:
+    @echo "🔼 Bumping version..."
+    uv run cz bump
+
+changelog:
+    @echo "📜 Generating changelog (dry run)..."
+    uv run cz changelog --dry-run
+
+alias validate := check
+
 check:
     just lint
+    just typecheck
     just test
     just security
