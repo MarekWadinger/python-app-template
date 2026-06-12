@@ -1,3 +1,23 @@
 # Changelog
 
 This changelog is maintained automatically by [commitizen](https://commitizen-tools.github.io/commitizen/) on version bumps.
+
+## v0.2.0 (2026-06-12)
+
+### Feat
+
+- add Makefile with auto-documented targets (#4)
+- **justfile**: split lint/typecheck, add bump, changelog, clean recipes (#2)
+- configure commitizen, ruff, and build system in pyproject (#5)
+- commit initialization of project
+- initial project structure with essentials
+
+### Fix
+
+- **tests**: update module name in test file to match application name
+- **justfile**: wrong access to variables
+
+### Refactor
+
+- validate name and github user not empty
+- update project template to python_app_template
