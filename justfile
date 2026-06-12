@@ -107,7 +107,7 @@ format:
 security:
     @echo "🔒 Running security checks..."
     uv run --group security bandit -r src/ -f json -o bandit-report.json
-    uv run --group security safety scan
+    uv run --group security pip-audit --skip-editable
 
 clean:
     @echo "🧹 Cleaning build artifacts..."
