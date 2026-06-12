@@ -50,8 +50,9 @@ repos:
     hooks:
       - id: ty
         name: ty check
-        entry: uvx ty check . --ignore unresolved-import
-        language: python
+        entry: uv run --group lint ty check . --ignore unresolved-import
+        language: system
+        pass_filenames: false
         stages:
           - "pre-push"
           - "pre-merge-commit"
@@ -64,7 +65,7 @@ repos:
         name: pytest-check
         language: system
         types: [python]
-        entry: env ENVIRONMENT=test pytest
+        entry: env ENVIRONMENT=test uv run --group test pytest
         pass_filenames: false
         always_run: false
         args: [--doctest-modules]
