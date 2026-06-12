@@ -2,6 +2,12 @@
 
 This changelog is maintained automatically by [commitizen](https://commitizen-tools.github.io/commitizen/) on version bumps.
 
+## v0.2.5 (2026-06-12)
+
+### Fix
+
+- **justfile**: regenerate lockfile and squeeze README blanks in init (#11)
+
 ## v0.2.4 (2026-06-12)
 
 ### Fix
