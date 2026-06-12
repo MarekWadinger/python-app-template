@@ -2,6 +2,12 @@
 
 This changelog is maintained automatically by [commitizen](https://commitizen-tools.github.io/commitizen/) on version bumps.
 
+## v0.3.0 (2026-06-12)
+
+### Feat
+
+- **init**: prompt for Codecov setup with option to skip (#13)
+
 ## v0.2.6 (2026-06-12)
 
 ### Refactor
