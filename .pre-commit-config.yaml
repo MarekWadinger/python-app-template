@@ -1,44 +1,51 @@
 # https://pre-commit.com
 default_install_hook_types:
   - pre-commit
-  - post-checkout
-  - post-merge
-  - post-rewrite
+  - commit-msg
+  - pre-push
 repos:
+  # ---------------------------------------------------------------------------
+  # General file hygiene
+  # ---------------------------------------------------------------------------
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v6.0.0
     hooks:
-      - id: debug-statements #Check for debugger imports and breakpoint() in python files
-      - id: check-ast #Simply check whether files parse as valid python
-      - id: fix-byte-order-marker #removes UTF-8 byte order marker
-      - id: check-json
-      - id: detect-private-key # detect-private-key is not in repo
+      - id: debug-statements # Check for debugger imports and breakpoint() in python files
+      - id: check-ast # Simply check whether files parse as valid python
       - id: check-yaml
-      - id: check-added-large-files
-      - id: check-shebang-scripts-are-executable
-      - id: check-case-conflict #Check for files with names that would conflict on a case-insensitive filesystem like MacOS HFS+ or Windows FAT
-      - id: end-of-file-fixer #Makes sure files end in a newline and only a newline
+      - id: check-json
+      - id: check-toml
+      - id: end-of-file-fixer # Makes sure files end in a newline and only a newline
       - id: trailing-whitespace
       - id: mixed-line-ending
-  - repo: local
+        args: ['--fix=lf']
+      - id: check-merge-conflict
+      - id: check-case-conflict # Check for filenames that would conflict on a case-insensitive filesystem
+      - id: check-added-large-files
+        args: ['--maxkb=500']
+      - id: detect-private-key
+  # ---------------------------------------------------------------------------
+  # Python lint & format
+  # ---------------------------------------------------------------------------
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.7
     hooks:
-      - id: ruff
-        name: ruff
-        entry: ruff check
-        language: python
-        args: [--fix, --exit-non-zero-on-fix, --line-length=120]
+      - id: ruff-check
+        args: [--fix, --exit-non-zero-on-fix]
         types_or: [python, pyi, jupyter]
       - id: ruff-format
-        name: ruff-format
-        entry: ruff format
-        language: python
-        args: [--line-length=120]
         types_or: [python, pyi, jupyter]
+  # ---------------------------------------------------------------------------
+  # Docs: Python snippets in documentation
+  # ---------------------------------------------------------------------------
   - repo: https://github.com/asottile/blacken-docs
-    rev: 1.19.1
+    rev: 1.20.0
     hooks:
-      - id: blacken-docs #blacken-docs is a pre-commit hook that runs to check for issues in the docs
+      - id: blacken-docs
         additional_dependencies: [black]
+  # ---------------------------------------------------------------------------
+  # Type checking (pre-push)
+  # ---------------------------------------------------------------------------
   - repo: local
     hooks:
       - id: ty
@@ -48,6 +55,9 @@ repos:
         stages:
           - "pre-push"
           - "pre-merge-commit"
+  # ---------------------------------------------------------------------------
+  # Tests (pre-push)
+  # ---------------------------------------------------------------------------
   - repo: local
     hooks:
       - id: pytest-check
@@ -59,6 +69,9 @@ repos:
         always_run: false
         args: [--doctest-modules]
         stages: [pre-push]
+  # ---------------------------------------------------------------------------
+  # Notebooks
+  # ---------------------------------------------------------------------------
   - repo: https://github.com/roy-ht/pre-commit-jupyter
     rev: v1.2.1
     hooks:
@@ -67,13 +80,45 @@ repos:
           - --remove-kernel-metadata
           - --pin-patterns
           - "[pin];[donotremove]"
+  # ---------------------------------------------------------------------------
+  # GitHub Actions workflows
+  # ---------------------------------------------------------------------------
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.11
+    hooks:
+      - id: actionlint
+  # ---------------------------------------------------------------------------
+  # Shell scripts
+  # ---------------------------------------------------------------------------
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.11.0.1
+    hooks:
+      - id: shellcheck
+  # ---------------------------------------------------------------------------
+  # Markdown
+  # ---------------------------------------------------------------------------
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.48.0
+    hooks:
+      - id: markdownlint
+        args: ['--disable', 'MD007', 'MD013', 'MD022', 'MD032', 'MD033', 'MD041', '--']
+        exclude: ^CHANGELOG\.md$
+  # ---------------------------------------------------------------------------
+  # Commit message
+  # ---------------------------------------------------------------------------
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v4.8.3
+    rev: v4.13.9
     hooks:
       - id: commitizen
         stages: [commit-msg]
+  # ---------------------------------------------------------------------------
+  # Lockfile sync
+  # ---------------------------------------------------------------------------
   - repo: https://github.com/astral-sh/uv-pre-commit
-    rev: 0.8.12
+    rev: 0.9.11
     hooks:
       - id: uv-sync
         args: [--frozen]
+        # Upstream defaults to post-checkout/merge/rewrite stages, which are no
+        # longer installed by default_install_hook_types; run on pre-commit too.
+        stages: [pre-commit, post-checkout, post-merge, post-rewrite]
