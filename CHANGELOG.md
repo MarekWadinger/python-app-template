@@ -2,6 +2,12 @@
 
 This changelog is maintained automatically by [commitizen](https://commitizen-tools.github.io/commitizen/) on version bumps.
 
+## v0.2.2 (2026-06-12)
+
+### Fix
+
+- make just init reset version/changelog and repair PyPI publish trigger (#8)
+
 ## v0.2.1 (2026-06-12)
 
 ### Fix
