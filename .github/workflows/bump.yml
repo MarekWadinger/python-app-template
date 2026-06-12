@@ -1,0 +1,32 @@
+name: Bump & Release
+on:
+  push:
+    branches: [main]
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    # Skip the commit the bump itself creates, and skip if nothing bumpable landed.
+    if: ${{ !startsWith(github.event.head_commit.message, 'bump:') }}
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # commitizen needs full history + tags to compute the bump
+      - name: Bump version, update CHANGELOG.md, create tag
+        id: cz
+        uses: commitizen-tools/commitizen-action@0.24.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          changelog_increment_filename: release-body.md
+      - name: Create GitHub release
+        if: ${{ steps.cz.outputs.version != '' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          tag="v${{ steps.cz.outputs.version }}"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "Release $tag already exists — skipping."
+          else
+            gh release create "$tag" --title "$tag" --notes-file release-body.md
+          fi
