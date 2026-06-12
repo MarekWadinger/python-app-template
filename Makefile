@@ -41,9 +41,9 @@ test-cov: ## Run pytest with coverage report
 
 # ─── Security ─────────────────────────────────────────────
 
-security: ## Run security scans (bandit + safety)
+security: ## Run security scans (bandit + pip-audit)
 	uv run --group security bandit -r src/
-	uv run --group security safety scan || true
+	uv run --group security pip-audit --skip-editable
 
 # ─── Validation ───────────────────────────────────────────
 

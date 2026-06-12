@@ -63,10 +63,10 @@ jobs:
       - name: Run bandit
         run: uv run --group security bandit -r src/ -f json -o bandit-report.json
 
-      # safety's advisory DB lookups are flaky/network-dependent; advisory
-      # failures shouldn't block CI, so this step is allowed to soft-fail.
-      - name: Run safety
-        run: uv run --group security safety scan || true
+      # pip-audit checks installed deps against the PyPI advisory DB; network
+      # hiccups shouldn't block CI, so this step is allowed to soft-fail.
+      - name: Run pip-audit
+        run: uv run --group security pip-audit --skip-editable || true
 
   test:
     name: Test

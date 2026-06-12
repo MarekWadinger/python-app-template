@@ -37,7 +37,7 @@ test = [
 ]
 security = [
     "bandit>=1.7.0",
-    "safety>=2.0.0",
+    "pip-audit>=2.7.0",
 ]
 format = [
     "ruff>=0.13.3",
