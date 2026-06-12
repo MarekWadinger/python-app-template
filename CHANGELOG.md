@@ -2,6 +2,12 @@
 
 This changelog is maintained automatically by [commitizen](https://commitizen-tools.github.io/commitizen/) on version bumps.
 
+## v0.2.3 (2026-06-12)
+
+### Fix
+
+- replace safety with pip-audit and upgrade vulnerable lockfile pins (#9)
+
 ## v0.2.2 (2026-06-12)
 
 ### Fix
