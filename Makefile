@@ -20,30 +20,30 @@ install: ## Install all dependencies and pre-commit hooks
 # ─── Linting & Formatting ────────────────────────────────
 
 lint: ## Run ruff linter (check only)
-	uv run ruff check .
+	uv run --group format ruff check .
 
 format: ## Auto-fix formatting with ruff
-	uv run ruff format .
-	uv run ruff check --fix .
+	uv run --group format ruff format .
+	uv run --group format ruff check --fix .
 
 # ─── Type Checking ────────────────────────────────────────
 
 typecheck: ## Run ty type checker
-	uvx ty check . --ignore unresolved-import
+	uv run --group lint ty check . --ignore unresolved-import
 
 # ─── Testing ──────────────────────────────────────────────
 
 test: ## Run pytest (all tests)
-	uv run pytest
+	uv run --group test pytest
 
 test-cov: ## Run pytest with coverage report
-	uv run pytest --cov=src --cov-report=term --cov-report=html --cov-report=xml
+	uv run --group test pytest --cov=src --cov-report=term --cov-report=html --cov-report=xml
 
 # ─── Security ─────────────────────────────────────────────
 
 security: ## Run security scans (bandit + safety)
-	uv run bandit -r src/
-	uv run safety scan || true
+	uv run --group security bandit -r src/
+	uv run --group security safety scan || true
 
 # ─── Validation ───────────────────────────────────────────
 
@@ -51,12 +51,12 @@ validate: lint typecheck test security ## Run all checks (lint + typecheck + tes
 	@echo "All checks passed."
 
 pre-commit: ## Run pre-commit hooks on all files
-	uv run pre-commit run --all-files
+	uv run --group dev pre-commit run --all-files
 
 # ─── Release ──────────────────────────────────────────────
 
 bump: ## Bump version and update changelog with commitizen
-	uv run cz bump
+	uv run --group dev cz bump
 
 # ─── Cleanup ──────────────────────────────────────────────
 

@@ -75,33 +75,33 @@ dev-install:
 
 install-hooks:
     @echo "🪝 Installing pre-commit hooks..."
-    uv run pre-commit install
+    uv run --group dev pre-commit install
 
 test:
     @echo "🧪 Running tests..."
-    uv run pytest
+    uv run --group test pytest
 
 test-cov:
     @echo "🧪 Running tests with coverage..."
-    uv run pytest --cov=src --cov-report=term --cov-report=html --cov-report=xml
+    uv run --group test pytest --cov=src --cov-report=term --cov-report=html --cov-report=xml
 
 lint:
     @echo "🔍 Running linting..."
-    uv run ruff check .
+    uv run --group format ruff check .
 
 typecheck:
     @echo "🔎 Running type checks..."
-    uv run ty check . --ignore unresolved-import
+    uv run --group lint ty check . --ignore unresolved-import
 
 format:
     @echo "🎨 Formatting code..."
-    uv run ruff format .
-    uv run ruff check --fix .
+    uv run --group format ruff format .
+    uv run --group format ruff check --fix .
 
 security:
     @echo "🔒 Running security checks..."
-    uv run bandit -r src/ -f json -o bandit-report.json
-    uv run safety scan
+    uv run --group security bandit -r src/ -f json -o bandit-report.json
+    uv run --group security safety scan
 
 clean:
     @echo "🧹 Cleaning build artifacts..."
@@ -124,11 +124,11 @@ build:
 
 bump:
     @echo "🔼 Bumping version..."
-    uv run cz bump
+    uv run --group dev cz bump
 
 changelog:
     @echo "📜 Generating changelog (dry run)..."
-    uv run cz changelog --dry-run
+    uv run --group dev cz changelog --dry-run
 
 alias validate := check
 
