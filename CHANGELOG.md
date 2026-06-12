@@ -2,6 +2,12 @@
 
 This changelog is maintained automatically by [commitizen](https://commitizen-tools.github.io/commitizen/) on version bumps.
 
+## v0.2.1 (2026-06-12)
+
+### Fix
+
+- pass uv dependency groups to tool invocations in justfile and Makefile (#7)
+
 ## v0.2.0 (2026-06-12)
 
 ### Feat
