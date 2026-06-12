@@ -15,14 +15,28 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # commitizen needs full history + tags to compute the bump
+      # A fresh "Use this template" copy still carries the template's own
+      # version until `make init` runs; bumping then would tag template state.
+      # init deletes the README template-usage section, so its marker is a
+      # reliable initialized/uninitialized signal that init's sed never touches.
+      - name: Skip on uninitialized template copies
+        id: guard
+        run: |
+          if grep -q 'TEMPLATE_USAGE_START' README.md && [ "$GITHUB_REPOSITORY" != "MarekWadinger/python-app-template" ]; then
+            echo "initialized=false" >> "$GITHUB_OUTPUT"
+            echo "Uninitialized template copy — skipping bump."
+          else
+            echo "initialized=true" >> "$GITHUB_OUTPUT"
+          fi
       - name: Bump version, update CHANGELOG.md, create tag
         id: cz
+        if: ${{ steps.guard.outputs.initialized == 'true' }}
         uses: commitizen-tools/commitizen-action@0.24.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           changelog_increment_filename: release-body.md
       - name: Create GitHub release
-        if: ${{ steps.cz.outputs.version != '' }}
+        if: ${{ steps.guard.outputs.initialized == 'true' && steps.cz.outputs.version != '' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |

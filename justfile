@@ -10,6 +10,9 @@ default:
 help:
     @just --list
 
+# >>> TEMPLATE INIT >>>
+# This whole block is removed automatically after init runs (from just or make).
+
 init:
     @echo "🚀 Initializing Python project from template..."
     @echo ""
@@ -65,14 +68,39 @@ init:
     echo "🔒 Regenerating lockfile for the renamed project..."; \
     uv lock; \
     echo ""; \
-    echo "✅ Project initialized successfully!"; \
-    echo ""; \
-    echo "Next steps:"; \
-    echo "1. just dev-install"; \
-    echo "2. just install-hooks"; \
-    echo "3. Start coding!"
+    echo "🧰 Selecting task runner..."; \
+    if command -v just >/dev/null 2>&1; then \
+        echo "'just' is available — keeping justfile, removing Makefile."; \
+        rm -f Makefile; \
+        sed -i.bak '/^# >>> TEMPLATE INIT >>>/,/^# <<< TEMPLATE INIT <<</d' justfile; \
+        rm -f justfile.bak; \
+        echo ""; \
+        echo "✅ Project initialized successfully!"; \
+        echo ""; \
+        echo "Next steps:"; \
+        echo "1. just dev-install"; \
+        echo "2. just install-hooks"; \
+        echo "3. Start coding!"; \
+    else \
+        echo "'just' not found — keeping Makefile, removing justfile."; \
+        rm -f justfile; \
+        sed -i.bak '/^# >>> TEMPLATE INIT >>>/,/^# <<< TEMPLATE INIT <<</d' Makefile; \
+        rm -f Makefile.bak; \
+        sed -i.bak -e 's|just dev-install|make install|g' -e 's|just install-hooks|make install|g' -e 's|just check|make validate|g' -e 's|just |make |g' README.md; \
+        rm -f README.md.bak; \
+        sed -i.bak -e '/- name: Install just/,+1d' -e 's|run: just |run: make |g' .github/workflows/ci.yml; \
+        rm -f .github/workflows/ci.yml.bak; \
+        echo ""; \
+        echo "✅ Project initialized successfully!"; \
+        echo ""; \
+        echo "Next steps:"; \
+        echo "1. make install"; \
+        echo "2. Start coding!"; \
+    fi
     git add .
     git commit -m 'chore: initialize project from template'
+
+# <<< TEMPLATE INIT <<<
 
 install:
     @echo "📦 Installing project dependencies..."

@@ -22,10 +22,10 @@ cd my-new-project
 
 ### 2. Initialize the Project
 
-Run the initialization script to customize the template using [`just`](https://github.com/casey/just):
+Run the initialization script to customize the template (works with plain `make`, or with [`just`](https://github.com/casey/just) if you have it):
 
 ```bash
-just init
+make init   # or: just init
 ```
 
 The initialization will prompt you for:
@@ -38,14 +38,17 @@ The initialization will prompt you for:
 
 This will automatically replace all placeholder values throughout the project files.
 
+At the end, init picks a single task runner for your project: if `just` is installed, the `justfile` is kept and the `Makefile` is removed; otherwise the `Makefile` is kept and the `justfile` is removed. The `init` recipe itself is stripped from whichever file remains.
+
 ### 3. Set Up Development Environment
 
 ```bash
-# Install dependencies
+# If `just` was kept
 just dev-install
-
-# Install pre-commit hooks
 just install-hooks
+
+# If the Makefile was kept
+make install
 ```
 
 ### 4. Start Coding
@@ -72,8 +75,8 @@ Your project is ready! The template includes:
 Run `just --list` to see all available commands:
 
 ```bash
+make init          # Initialize new project from template (or: just init)
 just help          # Show available commands
-just init          # Initialize new project from template
 just install       # Install project dependencies
 just dev-install   # Install development dependencies
 just install-hooks # Install pre-commit hooks
