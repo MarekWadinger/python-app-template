@@ -35,10 +35,10 @@ jobs:
         uses: extractions/setup-just@v2
 
       - name: Run ruff
-        run: uv run --group format ruff check .
+        run: just lint
 
       - name: Run type check
-        run: uv run --group lint ty check . --ignore unresolved-import
+        run: just typecheck
 
   security:
     name: Security
@@ -60,13 +60,9 @@ jobs:
       - name: Install just
         uses: extractions/setup-just@v2
 
-      - name: Run bandit
-        run: uv run --group security bandit -r src/ -f json -o bandit-report.json
-
-      # pip-audit checks installed deps against the PyPI advisory DB; network
-      # hiccups shouldn't block CI, so this step is allowed to soft-fail.
-      - name: Run pip-audit
-        run: uv run --group security pip-audit --skip-editable || true
+      # Runs bandit + pip-audit; fails on findings, same as locally.
+      - name: Run security checks
+        run: just security
 
   test:
     name: Test
