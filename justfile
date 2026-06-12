@@ -55,12 +55,15 @@ init:
     sed -i.bak 's/<!-- PROJECT_README_START -->//g' README.md; \
     sed -i.bak 's/<!-- PROJECT_README_END -->//g' README.md; \
     rm README.md.bak; \
+    cat -s README.md > README.md.tmp && mv README.md.tmp README.md; \
     rm -f TEMPLATE_USAGE.md; \
     if [ "$PROJECT_MODULE" != "python_app_template" ]; then \
         echo "📁 Renaming module directories..."; \
         mv src/python_app_template src/$PROJECT_MODULE; \
         mv tests/test_python_app_template.py tests/test_$PROJECT_MODULE.py; \
     fi; \
+    echo "🔒 Regenerating lockfile for the renamed project..."; \
+    uv lock; \
     echo ""; \
     echo "✅ Project initialized successfully!"; \
     echo ""; \
