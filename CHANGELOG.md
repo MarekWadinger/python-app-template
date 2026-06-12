@@ -2,6 +2,12 @@
 
 This changelog is maintained automatically by [commitizen](https://commitizen-tools.github.io/commitizen/) on version bumps.
 
+## v0.2.4 (2026-06-12)
+
+### Fix
+
+- **pre-commit**: stop passing filenames to the ty pre-push hook (#10)
+
 ## v0.2.3 (2026-06-12)
 
 ### Fix
