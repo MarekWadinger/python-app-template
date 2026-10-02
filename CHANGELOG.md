@@ -2,6 +2,12 @@
 
 This changelog is maintained automatically by [commitizen](https://commitizen-tools.github.io/commitizen/) on version bumps.
 
+## v0.4.0 (2026-10-02)
+
+### Feat
+
+- **pre-commit**: add doc-checks hooks for markdown drift
+
 ## v0.3.0 (2026-06-12)
 
 ### Feat
