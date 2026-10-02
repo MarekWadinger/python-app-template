@@ -105,6 +105,24 @@ repos:
         args: ['--disable', 'MD007', 'MD013', 'MD022', 'MD032', 'MD033', 'MD041', '--']
         exclude: ^CHANGELOG\.md$
   # ---------------------------------------------------------------------------
+  # Docs: self-healing checks (markdown drift vs. reality)
+  # ---------------------------------------------------------------------------
+  - repo: https://github.com/MarekWadinger/doc-checks
+    rev: v0.3.0
+    hooks:
+      # doc-checks requires Python >=3.13; pin so pre-commit builds the isolated
+      # env with a compatible interpreter regardless of the project's own floor.
+      - id: doc-check-make-refs # stale `make <target>` refs in markdown
+        language_version: python3.13
+      - id: doc-check-cd-refs # `cd <path>` pointing at missing dirs
+        language_version: python3.13
+      - id: doc-check-py-imports # stale project-local imports in fences
+        language_version: python3.13
+      - id: doc-check-trees # stale paths in ASCII project-trees
+        language_version: python3.13
+      - id: doc-check-mermaid # broken mermaid syntax (needs mmdc, else skipped)
+        language_version: python3.13
+  # ---------------------------------------------------------------------------
   # Commit message
   # ---------------------------------------------------------------------------
   - repo: https://github.com/commitizen-tools/commitizen
