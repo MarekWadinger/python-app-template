@@ -16,8 +16,9 @@
 #### Option B: Clone Template
 
 ```bash
-git clone <your-template-repo-url> my-new-project
-cd my-new-project
+PROJECT=my-new-project
+git clone <your-template-repo-url> $PROJECT
+cd $PROJECT
 ```
 
 ### 2. Initialize the Project
