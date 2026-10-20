@@ -2,6 +2,12 @@
 
 This changelog is maintained automatically by [commitizen](https://commitizen-tools.github.io/commitizen/) on version bumps.
 
+## v0.4.3 (2026-10-20)
+
+### Fix
+
+- **ci**: run the 3.13 test leg on Python 3.13 (#19)
+
 ## v0.4.2 (2026-10-20)
 
 ### Fix
