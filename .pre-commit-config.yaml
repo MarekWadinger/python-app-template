@@ -3,6 +3,8 @@ default_install_hook_types:
   - pre-commit
   - commit-msg
   - pre-push
+# Hooks without explicit `stages` run on pre-commit only (not again on commit-msg/pre-push)
+default_stages: [pre-commit]
 repos:
   # ---------------------------------------------------------------------------
   # General file hygiene
@@ -16,7 +18,9 @@ repos:
       - id: check-json
       - id: check-toml
       - id: end-of-file-fixer # Makes sure files end in a newline and only a newline
+        stages: [pre-commit] # upstream manifest also opts into pre-push, overriding default_stages
       - id: trailing-whitespace
+        stages: [pre-commit]
       - id: mixed-line-ending
         args: ['--fix=lf']
       - id: check-merge-conflict
