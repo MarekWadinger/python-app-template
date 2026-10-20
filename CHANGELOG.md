@@ -2,6 +2,12 @@
 
 This changelog is maintained automatically by [commitizen](https://commitizen-tools.github.io/commitizen/) on version bumps.
 
+## v0.4.4 (2026-10-20)
+
+### Fix
+
+- **security**: make bandit read its config from pyproject.toml (#20)
+
 ## v0.4.3 (2026-10-20)
 
 ### Fix
