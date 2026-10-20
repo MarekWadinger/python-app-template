@@ -2,6 +2,12 @@
 
 This changelog is maintained automatically by [commitizen](https://commitizen-tools.github.io/commitizen/) on version bumps.
 
+## v0.4.2 (2026-10-20)
+
+### Fix
+
+- **pre-commit**: run file-hygiene hooks on the pre-commit stage only (#16)
+
 ## v0.4.1 (2026-10-20)
 
 ### Fix
