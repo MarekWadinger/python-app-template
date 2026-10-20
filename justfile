@@ -127,6 +127,14 @@ install-hooks:
     @echo "🪝 Installing pre-commit hooks..."
     uv run --group dev pre-commit install
 
+# New branch from origin/main in its own worktree (../<repo>.worktrees/<name>), for parallel sessions
+worktree name:
+    git fetch -q origin
+    root="$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")"; \
+    dir="$root.worktrees/{{ replace(name, '/', '-') }}"; \
+    git worktree add -b {{ name }} "$dir" origin/main && cd "$dir" && uv sync --all-groups && \
+    echo "Ready: cd $dir   (remove later: git worktree remove <path>)"
+
 test:
     @echo "🧪 Running tests..."
     uv run --group test pytest

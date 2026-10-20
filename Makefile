@@ -8,7 +8,11 @@ SHELL := /bin/bash
 .DEFAULT_GOAL := help
 
 .PHONY: help install lint format typecheck test test-cov security validate \
-        bump pre-commit build clean
+        bump pre-commit build clean worktree
+
+# Main checkout, also when make runs inside a linked worktree
+REPO_ROOT := $(patsubst %/.git,%,$(shell git rev-parse --path-format=absolute --git-common-dir 2>/dev/null))
+WORKTREES := $(REPO_ROOT).worktrees
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
@@ -126,6 +130,13 @@ init: ## Initialize a new project from this template
 install: ## Install all dependencies and pre-commit hooks
 	uv sync --all-groups
 	uv run pre-commit install --install-hooks
+
+worktree: ## New branch from origin/main in its own worktree: make worktree NAME=<branch>
+	@test -n "$(NAME)" || { echo "usage: make worktree NAME=<branch>"; exit 1; }
+	git fetch -q origin
+	git worktree add -b $(NAME) $(WORKTREES)/$(subst /,-,$(NAME)) origin/main
+	cd $(WORKTREES)/$(subst /,-,$(NAME)) && uv sync --all-groups
+	@echo "Ready: cd $(WORKTREES)/$(subst /,-,$(NAME))   (remove later: git worktree remove <path>)"
 
 # ─── Linting & Formatting ────────────────────────────────
 
