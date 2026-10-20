@@ -2,6 +2,12 @@
 
 This changelog is maintained automatically by [commitizen](https://commitizen-tools.github.io/commitizen/) on version bumps.
 
+## v0.4.1 (2026-10-20)
+
+### Fix
+
+- **ci**: update stale pins and add Dependabot to keep them current (#17)
+
 ## v0.4.0 (2026-10-02)
 
 ### Feat
