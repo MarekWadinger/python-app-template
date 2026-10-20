@@ -152,7 +152,7 @@ test-cov: ## Run pytest with coverage report
 # ─── Security ─────────────────────────────────────────────
 
 security: ## Run security scans (bandit + pip-audit)
-	uv run --group security bandit -r src/
+	uv run --group security bandit -c pyproject.toml -r src/
 	uv run --group security pip-audit --skip-editable
 
 # ─── Validation ───────────────────────────────────────────
