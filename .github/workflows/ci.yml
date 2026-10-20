@@ -70,6 +70,9 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.12", "3.13"]
+    env:
+      # uv otherwise follows .python-version (3.12) and ignores the matrix interpreter
+      UV_PYTHON: ${{ matrix.python-version }}
 
     steps:
       - name: Checkout code
