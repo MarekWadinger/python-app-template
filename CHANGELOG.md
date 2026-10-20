@@ -2,6 +2,12 @@
 
 This changelog is maintained automatically by [commitizen](https://commitizen-tools.github.io/commitizen/) on version bumps.
 
+## v0.6.0 (2026-10-20)
+
+### Feat
+
+- add a worktree target for parallel sessions (#23)
+
 ## v0.5.0 (2026-10-20)
 
 ### Feat
