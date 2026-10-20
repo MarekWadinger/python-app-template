@@ -2,6 +2,12 @@
 
 This changelog is maintained automatically by [commitizen](https://commitizen-tools.github.io/commitizen/) on version bumps.
 
+## v0.5.0 (2026-10-20)
+
+### Feat
+
+- **validation**: validate public functions with pydantic, enforced by a contract test (#22)
+
 ## v0.4.5 (2026-10-20)
 
 ### Fix
