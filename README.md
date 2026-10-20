@@ -64,6 +64,7 @@ Your project is ready! The template includes:
 
 - 🐍 **Modern Python**: Uses Python 3.12+ with `uv` for fast dependency management
 - 🎨 **Code Quality**: Pre-configured with ruff (lint + format) and ty (type checking)
+- ✅ **Runtime Validation**: Public functions validate their arguments with pydantic (`@validated`); a contract test fails on any public function without it
 - 🔒 **Security**: Integrated security scanning with bandit and pip-audit
 - 🔄 **Dependency Updates**: Dependabot keeps actions, pre-commit hooks and `uv.lock` current
 - 🧪 **Testing**: pytest with coverage reporting
@@ -134,7 +135,7 @@ just check
 ### Core Functionality
 
 - **Modern Python**: Built with Python 3.12+ and modern tooling
-- **Type Safety**: Full type hints throughout the codebase
+- **Type Safety**: Full type hints throughout the codebase, validated at runtime by pydantic (`@validated` from `_validation.py`)
 - **Testing**: Pytest-based test suite
 - **CLI-first**: Runs as an application from the command line
 
