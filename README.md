@@ -63,8 +63,9 @@ Your project is ready! The template includes:
 ## Template Features
 
 - 🐍 **Modern Python**: Uses Python 3.12+ with `uv` for fast dependency management
-- 🎨 **Code Quality**: Pre-configured with Black, isort, flake8, and mypy
-- 🔒 **Security**: Integrated security scanning with bandit and safety
+- 🎨 **Code Quality**: Pre-configured with ruff (lint + format) and ty (type checking)
+- 🔒 **Security**: Integrated security scanning with bandit and pip-audit
+- 🔄 **Dependency Updates**: Dependabot keeps actions, pre-commit hooks and `uv.lock` current
 - 🧪 **Testing**: pytest with coverage reporting
 - 🪝 **Pre-commit Hooks**: Automated code formatting and linting
 - 🚀 **CI/CD**: GitHub Actions workflows for testing, linting, and releases
@@ -139,8 +140,8 @@ just check
 
 ### Development Tools
 
-- **Code Quality**: Pre-configured with Black, isort, flake8, and mypy
-- **Security**: Integrated security scanning with bandit and safety
+- **Code Quality**: Pre-configured with ruff (lint + format) and ty (type checking)
+- **Security**: Integrated security scanning with bandit and pip-audit
 - **Pre-commit Hooks**: Automated code formatting and linting
 - **CI/CD**: GitHub Actions workflows for testing, linting, and releases
 
@@ -190,7 +191,7 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 - **Function Naming**: Use descriptive names, avoid abbreviations
 - **Docstrings**: Use Google-style docstrings for all functions and classes
 - **Type Hints**: Always include type hints for function parameters and return values
-- **Line Length**: Maximum 88 characters per line
+- **Line Length**: Maximum 120 characters per line (ruff)
 - **Conventional Commits**: Use conventional commit format for all commits
 
 ## 📄 License
