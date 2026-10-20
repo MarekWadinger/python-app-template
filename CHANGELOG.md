@@ -2,6 +2,12 @@
 
 This changelog is maintained automatically by [commitizen](https://commitizen-tools.github.io/commitizen/) on version bumps.
 
+## v0.4.5 (2026-10-20)
+
+### Fix
+
+- **ci**: stop Dependabot downgrading shellcheck-py (#21)
+
 ## v0.4.4 (2026-10-20)
 
 ### Fix
