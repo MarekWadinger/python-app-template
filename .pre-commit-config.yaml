@@ -28,7 +28,7 @@ repos:
   # Python lint & format
   # ---------------------------------------------------------------------------
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.7
+    rev: v0.17.1
     hooks:
       - id: ruff-check
         args: [--fix, --exit-non-zero-on-fix]
@@ -85,21 +85,21 @@ repos:
   # GitHub Actions workflows
   # ---------------------------------------------------------------------------
   - repo: https://github.com/rhysd/actionlint
-    rev: v1.7.11
+    rev: v1.7.12
     hooks:
       - id: actionlint
   # ---------------------------------------------------------------------------
   # Shell scripts
   # ---------------------------------------------------------------------------
   - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.11.0.1
+    rev: v0.11.0.1-1
     hooks:
       - id: shellcheck
   # ---------------------------------------------------------------------------
   # Markdown
   # ---------------------------------------------------------------------------
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.48.0
+    rev: v0.49.1
     hooks:
       - id: markdownlint
         args: ['--disable', 'MD007', 'MD013', 'MD022', 'MD032', 'MD033', 'MD041', '--']
@@ -108,7 +108,7 @@ repos:
   # Docs: self-healing checks (markdown drift vs. reality)
   # ---------------------------------------------------------------------------
   - repo: https://github.com/MarekWadinger/doc-checks
-    rev: v0.3.0
+    rev: v0.5.1
     hooks:
       # doc-checks requires Python >=3.13; pin so pre-commit builds the isolated
       # env with a compatible interpreter regardless of the project's own floor.
@@ -126,7 +126,7 @@ repos:
   # Commit message
   # ---------------------------------------------------------------------------
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v4.13.9
+    rev: v4.19.2
     hooks:
       - id: commitizen
         stages: [commit-msg]
@@ -134,7 +134,7 @@ repos:
   # Lockfile sync
   # ---------------------------------------------------------------------------
   - repo: https://github.com/astral-sh/uv-pre-commit
-    rev: 0.9.11
+    rev: 0.13.3
     hooks:
       - id: uv-sync
         args: [--frozen]
