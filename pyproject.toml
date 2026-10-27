@@ -28,11 +28,11 @@ packages = ["src/python_app_template"]
 
 [dependency-groups]
 dev = [
-    "commitizen>=4.13",
+    "commitizen>=4.19.3",
     "pre-commit>=4.0",
 ]
 lint = [
-    "ty>=0.0.1a21",
+    "ty>=0.0.91",
 ]
 test = [
     "pytest>=8.0.0",
@@ -43,7 +43,7 @@ security = [
     "pip-audit>=2.7.0",
 ]
 format = [
-    "ruff>=0.13.3",
+    "ruff>=0.17.2",
 ]
 
 [project.urls]
