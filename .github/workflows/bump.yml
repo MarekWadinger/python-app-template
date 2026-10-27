@@ -64,7 +64,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           ref: v${{ needs.bump.outputs.version }}
-      - uses: astral-sh/setup-uv@v10.3.0
+      - uses: astral-sh/setup-uv@v10.3.2
       - name: Build package
         run: uv build
       - name: Publish to PyPI (trusted publishing)
