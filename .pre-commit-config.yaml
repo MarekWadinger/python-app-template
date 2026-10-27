@@ -32,7 +32,7 @@ repos:
   # Python lint & format
   # ---------------------------------------------------------------------------
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.17.1
+    rev: v0.17.2
     hooks:
       - id: ruff-check
         args: [--fix, --exit-non-zero-on-fix]
@@ -112,7 +112,7 @@ repos:
   # Docs: self-healing checks (markdown drift vs. reality)
   # ---------------------------------------------------------------------------
   - repo: https://github.com/MarekWadinger/doc-checks
-    rev: v0.5.1
+    rev: v0.5.2
     hooks:
       # doc-checks requires Python >=3.13; pin so pre-commit builds the isolated
       # env with a compatible interpreter regardless of the project's own floor.
@@ -130,7 +130,7 @@ repos:
   # Commit message
   # ---------------------------------------------------------------------------
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v4.19.2
+    rev: v4.19.3
     hooks:
       - id: commitizen
         stages: [commit-msg]
@@ -138,7 +138,7 @@ repos:
   # Lockfile sync
   # ---------------------------------------------------------------------------
   - repo: https://github.com/astral-sh/uv-pre-commit
-    rev: 0.13.3
+    rev: 0.13.5
     hooks:
       - id: uv-sync
         args: [--frozen]
