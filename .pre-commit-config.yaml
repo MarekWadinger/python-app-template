@@ -32,7 +32,7 @@ repos:
   # Python lint & format
   # ---------------------------------------------------------------------------
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.17.2
+    rev: v0.17.3
     hooks:
       - id: ruff-check
         args: [--fix, --exit-non-zero-on-fix]
@@ -103,7 +103,7 @@ repos:
   # Markdown
   # ---------------------------------------------------------------------------
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.49.1
+    rev: v0.50.0
     hooks:
       - id: markdownlint
         args: ['--disable', 'MD007', 'MD013', 'MD022', 'MD032', 'MD033', 'MD041', '--']
@@ -138,7 +138,7 @@ repos:
   # Lockfile sync
   # ---------------------------------------------------------------------------
   - repo: https://github.com/astral-sh/uv-pre-commit
-    rev: 0.13.5
+    rev: 0.13.6
     hooks:
       - id: uv-sync
         args: [--frozen]
