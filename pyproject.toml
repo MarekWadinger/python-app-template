@@ -16,7 +16,7 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
-    "pydantic>=2.10",
+    "pydantic>=2.14.2",
 ]
 
 [build-system]
@@ -32,10 +32,10 @@ dev = [
     "pre-commit>=4.0",
 ]
 lint = [
-    "ty>=0.0.91",
+    "ty>=0.0.95",
 ]
 test = [
-    "pytest>=8.0.0",
+    "pytest>=9.2.0",
     "pytest-cov>=4.0.0",
 ]
 security = [
@@ -43,7 +43,7 @@ security = [
     "pip-audit>=2.7.0",
 ]
 format = [
-    "ruff>=0.17.2",
+    "ruff>=0.17.3",
 ]
 
 [project.urls]
