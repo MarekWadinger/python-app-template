@@ -1,14 +1,12 @@
 """Main module for the python-project-template application."""
 
-import sys
-
 from python_app_template._validation import validated
 
 
 @validated
 def main() -> None:
     """Print a greeting message."""
-    sys.stdout.write("Hello from python-project-template!\n")
+    print("Hello from python-project-template!")  # noqa: T201 - CLI output
 
 
 if __name__ == "__main__":
