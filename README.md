@@ -63,7 +63,7 @@ Your project is ready! The template includes:
 ## Template Features
 
 - 🐍 **Modern Python**: Uses Python 3.12+ with `uv` for fast dependency management
-- 🎨 **Code Quality**: Pre-configured with ruff (lint + format) and ty (type checking)
+- 🎨 **Code Quality**: Pre-configured with ruff (lint + format), ty (type checking) and deptry (imports match declared dependencies)
 - ✅ **Runtime Validation**: Public functions validate their arguments with pydantic (`@validated`); a contract test fails on any public function without it
 - 🔒 **Security**: Integrated security scanning with bandit and pip-audit
 - 🔄 **Dependency Updates**: Dependabot keeps actions, pre-commit hooks and `uv.lock` current
@@ -85,7 +85,7 @@ just dev-install   # Install development dependencies
 just install-hooks # Install pre-commit hooks
 just test          # Run tests
 just test-cov      # Run tests with coverage
-just lint          # Run linting
+just lint          # Run linting (ruff + deptry)
 just format        # Format code
 just security      # Run security checks
 just clean         # Clean build artifacts
@@ -141,7 +141,7 @@ just check
 
 ### Development Tools
 
-- **Code Quality**: Pre-configured with ruff (lint + format) and ty (type checking)
+- **Code Quality**: Pre-configured with ruff (lint + format), ty (type checking) and deptry (imports match declared dependencies)
 - **Security**: Integrated security scanning with bandit and pip-audit
 - **Pre-commit Hooks**: Automated code formatting and linting
 - **CI/CD**: GitHub Actions workflows for testing, linting, and releases

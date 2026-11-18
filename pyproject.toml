@@ -32,6 +32,7 @@ dev = [
     "pre-commit>=4.0",
 ]
 lint = [
+    "deptry>=0.25.1",
     "ty>=0.0.95",
 ]
 test = [
@@ -118,3 +119,7 @@ exclude_lines = [
 [tool.bandit]
 exclude_dirs = ["tests", "test_*"]
 skips = ["B101", "B601"]
+
+[tool.deptry]
+# src layout: deptry only finds local packages at the root, so name ours
+known_first_party = ["python_app_template"]
