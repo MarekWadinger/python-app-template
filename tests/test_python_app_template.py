@@ -16,10 +16,6 @@ from python_app_template._validation import ExistingFile, Fraction, NonNegative,
 from python_app_template.main import main
 
 
-def test_main_no_args_runs_without_error() -> None:
-    main()
-
-
 def test_main_no_args_prints_greeting(capsys: pytest.CaptureFixture[str]) -> None:
     main()
     captured = capsys.readouterr()
@@ -28,7 +24,7 @@ def test_main_no_args_prints_greeting(capsys: pytest.CaptureFixture[str]) -> Non
 
 # Contract: every public function validates its arguments with pydantic. A new public
 # function without @validated (from python_app_template._validation) fails here, by name.
-def _public_functions() -> Iterator[tuple[str, Callable]]:
+def _public_functions() -> Iterator[tuple[str, Callable[..., object]]]:
     for info in pkgutil.walk_packages(python_app_template.__path__, "python_app_template."):
         if info.name.rsplit(".", 1)[-1].startswith("_"):
             continue
@@ -53,7 +49,7 @@ def test_public_function_each_discovered_has_validated(name: str) -> None:
 
 
 @given(st.integers(min_value=0) | st.floats(min_value=0))
-def test_non_negative_number_at_least_zero_keeps_value_and_type(value: float) -> None:
+def test_non_negative_number_at_least_zero_keeps_value_and_type(value: float | int) -> None:
     result = TypeAdapter(NonNegative).validate_python(value)
     assert result == value
     assert type(result) is type(value)
