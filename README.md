@@ -56,7 +56,7 @@ make install
 
 Your project is ready! The template includes:
 
-- A basic `main.py` with proper type hints
+- A basic `src/python_app_template/main.py` with proper type hints
 - Example tests
 - Pre-configured tools for code quality
 
@@ -108,7 +108,7 @@ Run the application locally:
 
 ```bash
 uv sync --all-groups
-uv run main.py
+uv run python -m python_app_template.main
 ```
 
 ## 🛠 Setup
