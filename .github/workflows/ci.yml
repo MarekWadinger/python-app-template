@@ -60,7 +60,7 @@ jobs:
       - name: Install just
         uses: extractions/setup-just@v4
 
-      # Runs bandit + pip-audit; fails on findings, same as locally.
+      # Runs pip-audit; fails on findings, same as locally. ruff's S rules (lint job) cover code security.
       - name: Run security checks
         run: just security
 

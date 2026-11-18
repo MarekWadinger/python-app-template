@@ -40,7 +40,6 @@ test = [
     "pytest-cov>=4.0.0",
 ]
 security = [
-    "bandit>=1.7.0",
     "pip-audit>=2.7.0",
 ]
 format = [
@@ -115,10 +114,6 @@ exclude_lines = [
     "class .*\\bProtocol\\):",
     "@(abc\\.)?abstractmethod",
 ]
-
-[tool.bandit]
-exclude_dirs = ["tests", "test_*"]
-skips = ["B101", "B601"]
 
 [tool.deptry]
 # src layout: deptry only finds local packages at the root, so name ours
