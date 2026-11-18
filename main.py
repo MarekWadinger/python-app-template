@@ -1,9 +1,11 @@
 """Main module for the python-project-template package."""
 
+import sys
+
 
 def main() -> None:
     """Print a greeting message."""
-    print("Hello from python-project-template!")
+    sys.stdout.write("Hello from python-project-template!\n")
 
 
 if __name__ == "__main__":
