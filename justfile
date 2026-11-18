@@ -149,7 +149,7 @@ lint:
 
 typecheck:
     @echo "🔎 Running type checks..."
-    uv run --group lint ty check . --ignore unresolved-import
+    uv run --group lint --group test ty check . --error-on-warning
 
 format:
     @echo "🎨 Formatting code..."
