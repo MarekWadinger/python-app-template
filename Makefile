@@ -67,13 +67,15 @@ init: ## Initialize a new project from this template
 	sed -i.bak 's|^__version__ = ".*"|__version__ = "0.1.0"|' src/python_app_template/__init__.py; \
 	rm src/python_app_template/__init__.py.bak; \
 	printf '# Changelog\n\nThis changelog is maintained automatically by [commitizen](https://commitizen-tools.github.io/commitizen/) on version bumps.\n' > CHANGELOG.md; \
-	if [ -e "$$HOME/.claude/rules/python.md" ]; then \
-		echo "📏 Using the global Python standard in ~/.claude/rules; removing the repo's copy..."; \
-		rm -f .claude/rules/python.md .claude/rules/python-tests.md; \
-		rmdir .claude/rules .claude 2>/dev/null || true; \
-		sed -i.bak '/\.claude\/rules\/python\.md/d' README.md; \
-		rm README.md.bak; \
-	fi; \
+	for rule in python python-tests; do \
+		if [ -e "$$HOME/.claude/rules/$$rule.md" ]; then \
+			echo "📏 Using the global ~/.claude/rules/$$rule.md; removing the repo's copy..."; \
+			rm -f ".claude/rules/$$rule.md"; \
+			sed -i.bak "/\.claude\/rules\/$$rule\.md/d" README.md; \
+			rm README.md.bak; \
+		fi; \
+	done; \
+	rmdir .claude/rules .claude 2>/dev/null || true; \
 	echo "📝 Cleaning up README.md..."; \
 	sed -i.bak '/<!-- TEMPLATE_USAGE_START -->/,/<!-- TEMPLATE_USAGE_END -->/d' README.md; \
 	sed -i.bak 's/<!-- PROJECT_README_START -->//g' README.md; \

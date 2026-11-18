@@ -41,7 +41,7 @@ This will automatically replace all placeholder values throughout the project fi
 
 At the end, init picks a single task runner for your project: if `just` is installed, the `justfile` is kept and the `Makefile` is removed; otherwise the `Makefile` is kept and the `justfile` is removed. The `init` recipe itself is stripped from whichever file remains.
 
-If `~/.claude/rules/python.md` exists, init deletes the repo's copy of the standard in `.claude/rules/`, so Claude Code loads it once, from your global rules.
+For each of `python.md` and `python-tests.md` that exists in `~/.claude/rules/`, init deletes the repo's copy in `.claude/rules/`, so Claude Code loads it once, from your global rules.
 
 ### 3. Set Up Development Environment
 
@@ -194,7 +194,8 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 
 ### Code Style
 
-The Python standard lives in [.claude/rules/python.md](.claude/rules/python.md) (which tools enforce it, what they can't check, which packages to use) and, for tests, [.claude/rules/python-tests.md](.claude/rules/python-tests.md).
+The Python standard lives in [.claude/rules/python.md](.claude/rules/python.md): which tools enforce it, what they can't check, which packages to use.
+The test standard lives in [.claude/rules/python-tests.md](.claude/rules/python-tests.md).
 
 - **Variable Naming**: Use snake_case for variables, PascalCase for classes
 - **Function Naming**: Use descriptive names, avoid abbreviations
