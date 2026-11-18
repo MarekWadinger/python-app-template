@@ -150,7 +150,7 @@ format: ## Auto-fix formatting with ruff
 # ─── Type Checking ────────────────────────────────────────
 
 typecheck: ## Run ty type checker
-	uv run --group lint ty check . --ignore unresolved-import
+	uv run --group lint --group test ty check . --error-on-warning
 
 # ─── Testing ──────────────────────────────────────────────
 
