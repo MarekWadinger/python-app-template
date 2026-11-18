@@ -41,6 +41,8 @@ This will automatically replace all placeholder values throughout the project fi
 
 At the end, init picks a single task runner for your project: if `just` is installed, the `justfile` is kept and the `Makefile` is removed; otherwise the `Makefile` is kept and the `justfile` is removed. The `init` recipe itself is stripped from whichever file remains.
 
+If `~/.claude/rules/python.md` exists, init deletes the repo's copy of the standard in `.claude/rules/`, so Claude Code loads it once, from your global rules.
+
 ### 3. Set Up Development Environment
 
 ```bash
