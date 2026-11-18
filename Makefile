@@ -140,8 +140,9 @@ worktree: ## New branch from origin/main in its own worktree: make worktree NAME
 
 # ─── Linting & Formatting ────────────────────────────────
 
-lint: ## Run ruff linter (check only)
+lint: ## Run ruff linter and deptry (check only)
 	uv run --group format ruff check .
+	uv run --group lint deptry .
 
 format: ## Auto-fix formatting with ruff
 	uv run --group format ruff format .

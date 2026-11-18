@@ -146,6 +146,7 @@ test-cov:
 lint:
     @echo "🔍 Running linting..."
     uv run --group format ruff check .
+    uv run --group lint deptry .
 
 typecheck:
     @echo "🔎 Running type checks..."

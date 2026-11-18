@@ -58,6 +58,17 @@ repos:
         language: system
         pass_filenames: false
   # ---------------------------------------------------------------------------
+  # Dependencies: imports vs. what pyproject.toml declares
+  # ---------------------------------------------------------------------------
+  - repo: local
+    hooks:
+      - id: deptry
+        name: deptry
+        entry: uv run --group lint deptry .
+        language: system
+        pass_filenames: false
+        files: (\.py|pyproject\.toml)$
+  # ---------------------------------------------------------------------------
   # Tests (pre-push)
   # ---------------------------------------------------------------------------
   - repo: local
