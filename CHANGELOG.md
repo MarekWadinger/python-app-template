@@ -2,6 +2,22 @@
 
 This changelog is maintained automatically by [commitizen](https://commitizen-tools.github.io/commitizen/) on version bumps.
 
+## v0.7.0 (2026-11-18)
+
+### Feat
+
+- let init defer to a global Python standard
+
+### Fix
+
+- install every dependency group by default
+- let init defer to each global rule file separately
+- point the project URLs at the real repo
+
+### Refactor
+
+- print the greeting with a named T201 exception
+
 ## v0.6.0 (2026-10-20)
 
 ### Feat
