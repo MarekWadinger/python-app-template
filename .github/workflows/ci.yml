@@ -37,7 +37,7 @@ jobs:
           version: "latest"
 
       - name: Run pre-commit hooks
-        run: uv run --group dev pre-commit run --all-files --show-diff-on-failure
+        run: uv run pre-commit run --all-files --show-diff-on-failure
 
   security:
     name: Security

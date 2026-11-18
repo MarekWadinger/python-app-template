@@ -54,6 +54,10 @@ Repository = "https://github.com/MarekWadinger/python-app-template"
 Documentation = "https://github.com/MarekWadinger/python-app-template#readme"
 "Bug Tracker" = "https://github.com/MarekWadinger/python-app-template/issues"
 
+[tool.uv]
+# uv sync, the uv-sync hook and plain uv run all install every group, so no command needs --group
+default-groups = "all"
+
 [tool.commitizen]
 name = "cz_conventional_commits"
 version_provider = "uv"
