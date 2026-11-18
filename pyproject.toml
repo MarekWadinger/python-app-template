@@ -49,10 +49,10 @@ format = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/MarekWadinger/python-project-template"
-Repository = "https://github.com/MarekWadinger/python-project-template"
-Documentation = "https://github.com/MarekWadinger/python-project-template#readme"
-"Bug Tracker" = "https://github.com/MarekWadinger/python-project-template/issues"
+Homepage = "https://github.com/MarekWadinger/python-app-template"
+Repository = "https://github.com/MarekWadinger/python-app-template"
+Documentation = "https://github.com/MarekWadinger/python-app-template#readme"
+"Bug Tracker" = "https://github.com/MarekWadinger/python-app-template/issues"
 
 [tool.commitizen]
 name = "cz_conventional_commits"

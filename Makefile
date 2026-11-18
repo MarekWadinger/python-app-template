@@ -58,6 +58,9 @@ init: ## Initialize a new project from this template
 		fi; \
 	done; \
 	echo "$$PYTHON_VER" > .python-version; \
+	echo "🔗 Pointing project URLs at github.com/$$GITHUB_USER/$$PROJECT_NAME..."; \
+	sed -i.bak "s|MarekWadinger/python-app-template|$$GITHUB_USER/$$PROJECT_NAME|g" pyproject.toml; \
+	rm pyproject.toml.bak; \
 	echo "📝 Resetting version and changelog..."; \
 	sed -i.bak 's|^version = ".*"|version = "0.1.0"|' pyproject.toml; \
 	rm pyproject.toml.bak; \
