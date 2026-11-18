@@ -29,15 +29,19 @@ repos:
         args: ['--maxkb=500']
       - id: detect-private-key
   # ---------------------------------------------------------------------------
-  # Python lint & format
+  # Python lint & format: uv.lock pins ruff, so this hook and `make lint` agree
   # ---------------------------------------------------------------------------
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.17.5
+  - repo: local
     hooks:
       - id: ruff-check
-        args: [--fix, --exit-non-zero-on-fix]
+        name: ruff check
+        entry: uv run --frozen ruff check --fix --exit-non-zero-on-fix
+        language: system
         types_or: [python, pyi, jupyter]
       - id: ruff-format
+        name: ruff format
+        entry: uv run --frozen ruff format
+        language: system
         types_or: [python, pyi, jupyter]
   # ---------------------------------------------------------------------------
   # Docs: Python snippets in documentation
