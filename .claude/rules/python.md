@@ -10,7 +10,7 @@ ruff and ty enforce most of the standard; this file adds what they can't see. Fa
 ## Tools
 
 - uv for everything; never pip, poetry or requirements.txt.
-- ruff and ty pass with zero findings (ty with `--error-on-warning`). Fix the code, don't silence the tool: a suppression names its code and the reason (`# noqa: S603 - fixed argv`).
+- ruff and ty pass with zero findings (ty with `error-on-warning = true`). Fix the code, don't silence the tool: a suppression names its code and the reason (`# noqa: S603 - fixed argv`).
 - The tool config (ruff, ty, pytest, coverage, deptry) is in this repo's [`pyproject.toml`](../../pyproject.toml) and [`.pre-commit-config.yaml`](../../.pre-commit-config.yaml); repos created from the template copy it from <https://github.com/MarekWadinger/python-app-template>.
 
 ## What the tools can't check

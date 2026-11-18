@@ -164,7 +164,7 @@ format: ## Auto-fix formatting with ruff
 # ─── Type Checking ────────────────────────────────────────
 
 typecheck: ## Run ty type checker
-	uv run ty check . --error-on-warning
+	uv run ty check .
 
 # ─── Testing ──────────────────────────────────────────────
 
