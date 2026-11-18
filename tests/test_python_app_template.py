@@ -3,6 +3,7 @@
 import importlib
 import pkgutil
 from collections.abc import Callable, Iterator
+from pathlib import Path
 
 import pytest
 from hypothesis import given
@@ -11,7 +12,7 @@ from inline_snapshot import snapshot
 from pydantic import TypeAdapter, ValidationError
 
 import python_app_template
-from python_app_template._validation import Fraction, NonNegative
+from python_app_template._validation import ExistingFile, Fraction, NonNegative, OpenFraction
 from python_app_template.main import main
 
 
@@ -78,3 +79,32 @@ def test_fraction_above_one_error_names_the_bound() -> None:
             }
         ]
     )
+
+
+@pytest.mark.parametrize("bound", [0.0, 1.0])
+def test_open_fraction_at_bound_raises(bound: float) -> None:
+    with pytest.raises(ValidationError):
+        TypeAdapter(OpenFraction).validate_python(bound)
+
+
+def test_open_fraction_inside_bounds_keeps_value() -> None:
+    assert TypeAdapter(OpenFraction).validate_python(0.8) == 0.8
+
+
+def test_existing_file_missing_path_raises(tmp_path: Path) -> None:
+    with pytest.raises(ValidationError, match="file not found"):
+        TypeAdapter(ExistingFile).validate_python(tmp_path / "missing.csv")
+
+
+def test_existing_file_directory_raises(tmp_path: Path) -> None:
+    with pytest.raises(ValidationError, match="file not found"):
+        TypeAdapter(ExistingFile).validate_python(tmp_path)
+
+
+@pytest.mark.parametrize("path_type", [str, Path])
+def test_existing_file_present_keeps_callers_type(tmp_path: Path, path_type: type[str | Path]) -> None:
+    file = tmp_path / "data.csv"
+    file.touch()
+    result = TypeAdapter(ExistingFile).validate_python(path_type(file))
+    assert isinstance(result, path_type)
+    assert Path(result) == file
