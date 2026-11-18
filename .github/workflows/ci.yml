@@ -14,8 +14,10 @@ env:
   PYTHON_VERSION: "3.12"
 
 jobs:
-  lint:
-    name: Lint
+  # The pre-commit hooks are the one list of checks: ruff, ty, deptry, docs, workflows, shell.
+  # Tests (a pre-push hook) and pip-audit run in their own jobs below.
+  pre-commit:
+    name: Pre-commit
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -24,21 +26,18 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v7
         with:
-          python-version: ${{ env.PYTHON_VERSION }}
+          # doc-checks hooks need python3.13; the last version listed is the default python
+          python-version: |
+            3.13
+            ${{ env.PYTHON_VERSION }}
 
       - name: Install uv
         uses: astral-sh/setup-uv@v10.3.3
         with:
           version: "latest"
 
-      - name: Install just
-        uses: extractions/setup-just@v4
-
-      - name: Run ruff
-        run: just lint
-
-      - name: Run type check
-        run: just typecheck
+      - name: Run pre-commit hooks
+        run: uv run --group dev pre-commit run --all-files --show-diff-on-failure
 
   security:
     name: Security
@@ -60,7 +59,7 @@ jobs:
       - name: Install just
         uses: extractions/setup-just@v4
 
-      # Runs pip-audit; fails on findings, same as locally. ruff's S rules (lint job) cover code security.
+      # Runs pip-audit; fails on findings, same as locally. ruff's S rules (pre-commit job) cover code security.
       - name: Run security checks
         run: just security
 
