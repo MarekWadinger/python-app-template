@@ -159,7 +159,6 @@ format:
 
 security:
     @echo "🔒 Running security checks..."
-    uv run --group security bandit -c pyproject.toml -r src/ -f json -o bandit-report.json
     uv run --group security pip-audit --skip-editable
 
 clean:
@@ -173,7 +172,6 @@ clean:
     rm -rf .mypy_cache/
     rm -rf .ruff_cache/
     rm -f coverage.xml
-    rm -f bandit-report.json
     find . -type d -name __pycache__ -delete
     find . -type f -name "*.pyc" -delete
 

@@ -183,7 +183,6 @@ Desktop.ini
 *.swo
 
 # Security reports
-bandit-report.json
 safety-report.json
 
 # uv
