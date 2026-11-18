@@ -140,8 +140,9 @@ worktree: ## New branch from origin/main in its own worktree: make worktree NAME
 
 # ─── Linting & Formatting ────────────────────────────────
 
-lint: ## Run ruff linter and deptry (check only)
+lint: ## Run ruff linter, format check and deptry (check only)
 	uv run --group format ruff check .
+	uv run --group format ruff format --check .
 	uv run --group lint deptry .
 
 format: ## Auto-fix formatting with ruff
@@ -168,7 +169,7 @@ security: ## Audit dependencies for known vulnerabilities (code security is ruff
 
 # ─── Validation ───────────────────────────────────────────
 
-validate: lint typecheck test security ## Run all checks (lint + typecheck + test + security)
+validate: lint typecheck test-cov security ## Run all checks (lint + typecheck + tests with coverage + security)
 	@echo "All checks passed."
 
 pre-commit: ## Run pre-commit hooks on all files

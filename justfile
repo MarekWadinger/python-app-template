@@ -146,6 +146,7 @@ test-cov:
 lint:
     @echo "🔍 Running linting..."
     uv run --group format ruff check .
+    uv run --group format ruff format --check .
     uv run --group lint deptry .
 
 typecheck:
@@ -192,5 +193,5 @@ alias validate := check
 check:
     just lint
     just typecheck
-    just test
+    just test-cov
     just security
