@@ -133,46 +133,46 @@ install:
 
 dev-install:
     @echo "🛠️  Installing development dependencies..."
-    uv sync --all-groups
+    uv sync
 
 install-hooks:
     @echo "🪝 Installing pre-commit hooks..."
-    uv run --group dev pre-commit install
+    uv run pre-commit install
 
 # New branch from origin/main in its own worktree (../<repo>.worktrees/<name>), for parallel sessions
 worktree name:
     git fetch -q origin
     root="$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")"; \
     dir="$root.worktrees/{{ replace(name, '/', '-') }}"; \
-    git worktree add -b {{ name }} "$dir" origin/main && cd "$dir" && uv sync --all-groups && \
+    git worktree add -b {{ name }} "$dir" origin/main && cd "$dir" && uv sync && \
     echo "Ready: cd $dir   (remove later: git worktree remove <path>)"
 
 test:
     @echo "🧪 Running tests..."
-    uv run --group test pytest
+    uv run pytest
 
 test-cov:
     @echo "🧪 Running tests with coverage..."
-    uv run --group test pytest --cov=src --cov-report=term --cov-report=html --cov-report=xml
+    uv run pytest --cov=src --cov-report=term --cov-report=html --cov-report=xml
 
 lint:
     @echo "🔍 Running linting..."
-    uv run --group format ruff check .
-    uv run --group format ruff format --check .
-    uv run --group lint deptry .
+    uv run ruff check .
+    uv run ruff format --check .
+    uv run deptry .
 
 typecheck:
     @echo "🔎 Running type checks..."
-    uv run --group lint --group test ty check . --error-on-warning
+    uv run ty check . --error-on-warning
 
 format:
     @echo "🎨 Formatting code..."
-    uv run --group format ruff format .
-    uv run --group format ruff check --fix .
+    uv run ruff format .
+    uv run ruff check --fix .
 
 security:
     @echo "🔒 Running security checks..."
-    uv run --group security pip-audit --skip-editable
+    uv run pip-audit --skip-editable
 
 clean:
     @echo "🧹 Cleaning build artifacts..."
@@ -194,11 +194,11 @@ build:
 
 bump:
     @echo "🔼 Bumping version..."
-    uv run --group dev cz bump
+    uv run cz bump
 
 changelog:
     @echo "📜 Generating changelog (dry run)..."
-    uv run --group dev cz changelog --dry-run
+    uv run cz changelog --dry-run
 
 alias validate := check
 

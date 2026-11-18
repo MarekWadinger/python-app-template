@@ -140,44 +140,44 @@ init: ## Initialize a new project from this template
 # ─── Install ──────────────────────────────────────────────
 
 install: ## Install all dependencies and pre-commit hooks
-	uv sync --all-groups
+	uv sync
 	uv run pre-commit install --install-hooks
 
 worktree: ## New branch from origin/main in its own worktree: make worktree NAME=<branch>
 	@test -n "$(NAME)" || { echo "usage: make worktree NAME=<branch>"; exit 1; }
 	git fetch -q origin
 	git worktree add -b $(NAME) $(WORKTREES)/$(subst /,-,$(NAME)) origin/main
-	cd $(WORKTREES)/$(subst /,-,$(NAME)) && uv sync --all-groups
+	cd $(WORKTREES)/$(subst /,-,$(NAME)) && uv sync
 	@echo "Ready: cd $(WORKTREES)/$(subst /,-,$(NAME))   (remove later: git worktree remove <path>)"
 
 # ─── Linting & Formatting ────────────────────────────────
 
 lint: ## Run ruff linter, format check and deptry (check only)
-	uv run --group format ruff check .
-	uv run --group format ruff format --check .
-	uv run --group lint deptry .
+	uv run ruff check .
+	uv run ruff format --check .
+	uv run deptry .
 
 format: ## Auto-fix formatting with ruff
-	uv run --group format ruff format .
-	uv run --group format ruff check --fix .
+	uv run ruff format .
+	uv run ruff check --fix .
 
 # ─── Type Checking ────────────────────────────────────────
 
 typecheck: ## Run ty type checker
-	uv run --group lint --group test ty check . --error-on-warning
+	uv run ty check . --error-on-warning
 
 # ─── Testing ──────────────────────────────────────────────
 
 test: ## Run pytest (all tests)
-	uv run --group test pytest
+	uv run pytest
 
 test-cov: ## Run pytest with coverage report
-	uv run --group test pytest --cov=src --cov-report=term --cov-report=html --cov-report=xml
+	uv run pytest --cov=src --cov-report=term --cov-report=html --cov-report=xml
 
 # ─── Security ─────────────────────────────────────────────
 
 security: ## Audit dependencies for known vulnerabilities (code security is ruff's S rules)
-	uv run --group security pip-audit --skip-editable
+	uv run pip-audit --skip-editable
 
 # ─── Validation ───────────────────────────────────────────
 
@@ -185,7 +185,7 @@ validate: lint typecheck test-cov security ## Run all checks (lint + typecheck +
 	@echo "All checks passed."
 
 pre-commit: ## Run pre-commit hooks on all files
-	uv run --group dev pre-commit run --all-files
+	uv run pre-commit run --all-files
 
 # ─── Release ──────────────────────────────────────────────
 
@@ -193,7 +193,7 @@ build: ## Build the package
 	uv build
 
 bump: ## Bump version and update changelog with commitizen
-	uv run --group dev cz bump
+	uv run cz bump
 
 # ─── Cleanup ──────────────────────────────────────────────
 

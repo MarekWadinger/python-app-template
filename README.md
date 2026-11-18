@@ -109,7 +109,7 @@ A comprehensive Python app template with pre-commit, CI/CD, and automated setup.
 Run the application locally:
 
 ```bash
-uv sync --all-groups
+uv sync
 uv run python -m python_app_template.main
 ```
 
@@ -122,7 +122,7 @@ Requires Python 3.12 or higher.
 ```bash
 git clone https://github.com/yourusername/python-project-template.git
 cd python-project-template
-uv sync --all-groups
+uv sync
 ```
 
 ### Development Workflow
