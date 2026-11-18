@@ -15,14 +15,11 @@ from python_app_template._validation import Fraction, NonNegative
 from python_app_template.main import main
 
 
-def test_main_function() -> None:
-    """Test that main function runs without error."""
-    # This test just ensures the function doesn't raise an exception
+def test_main_no_args_runs_without_error() -> None:
     main()
 
 
-def test_main_function_output(capsys: pytest.CaptureFixture[str]) -> None:
-    """Test that main function produces expected output."""
+def test_main_no_args_prints_greeting(capsys: pytest.CaptureFixture[str]) -> None:
     main()
     captured = capsys.readouterr()
     assert captured.out.strip() == "Hello from python-project-template!"
@@ -45,28 +42,29 @@ def _public_functions() -> Iterator[tuple[str, Callable]]:
 PUBLIC_FUNCTIONS = dict(_public_functions())
 
 
-def test_contract_sees_the_api() -> None:
+def test_public_function_discovery_in_package_finds_functions() -> None:
     assert PUBLIC_FUNCTIONS, "function discovery found nothing; the contract would pass vacuously"
 
 
 @pytest.mark.parametrize("name", sorted(PUBLIC_FUNCTIONS))
-def test_public_function_is_validated(name: str) -> None:
+def test_public_function_each_discovered_has_validated(name: str) -> None:
     assert hasattr(PUBLIC_FUNCTIONS[name], "raw_function"), f"{name} is missing @validated"
 
 
-@given(st.integers() | st.floats(allow_nan=False))
-def test_non_negative_keeps_value_and_type(value: float) -> None:
-    adapter = TypeAdapter(NonNegative)
-    if value < 0:
-        with pytest.raises(ValidationError):
-            adapter.validate_python(value)
-    else:
-        result = adapter.validate_python(value)
-        assert result == value
-        assert type(result) is type(value)
+@given(st.integers(min_value=0) | st.floats(min_value=0))
+def test_non_negative_number_at_least_zero_keeps_value_and_type(value: float) -> None:
+    result = TypeAdapter(NonNegative).validate_python(value)
+    assert result == value
+    assert type(result) is type(value)
 
 
-def test_fraction_error_names_the_violated_bound() -> None:
+@given(st.integers(max_value=-1) | st.floats(max_value=-0.0, exclude_max=True))
+def test_non_negative_number_below_zero_raises(value: float) -> None:
+    with pytest.raises(ValidationError):
+        TypeAdapter(NonNegative).validate_python(value)
+
+
+def test_fraction_above_one_error_names_the_bound() -> None:
     with pytest.raises(ValidationError) as excinfo:
         TypeAdapter(Fraction).validate_python(1.5)
     assert excinfo.value.errors(include_url=False) == snapshot(
