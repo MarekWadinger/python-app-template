@@ -5,8 +5,13 @@ import pkgutil
 from collections.abc import Callable, Iterator
 
 import pytest
+from hypothesis import given
+from hypothesis import strategies as st
+from inline_snapshot import snapshot
+from pydantic import TypeAdapter, ValidationError
 
 import python_app_template
+from python_app_template._validation import Fraction, NonNegative
 from python_app_template.main import main
 
 
@@ -47,3 +52,31 @@ def test_contract_sees_the_api() -> None:
 @pytest.mark.parametrize("name", sorted(PUBLIC_FUNCTIONS))
 def test_public_function_is_validated(name: str) -> None:
     assert hasattr(PUBLIC_FUNCTIONS[name], "raw_function"), f"{name} is missing @validated"
+
+
+@given(st.integers() | st.floats(allow_nan=False))
+def test_non_negative_keeps_value_and_type(value: float) -> None:
+    adapter = TypeAdapter(NonNegative)
+    if value < 0:
+        with pytest.raises(ValidationError):
+            adapter.validate_python(value)
+    else:
+        result = adapter.validate_python(value)
+        assert result == value
+        assert type(result) is type(value)
+
+
+def test_fraction_error_names_the_violated_bound() -> None:
+    with pytest.raises(ValidationError) as excinfo:
+        TypeAdapter(Fraction).validate_python(1.5)
+    assert excinfo.value.errors(include_url=False) == snapshot(
+        [
+            {
+                "type": "less_than_equal",
+                "loc": (),
+                "msg": "Input should be less than or equal to 1",
+                "input": 1.5,
+                "ctx": {"le": 1.0},
+            }
+        ]
+    )
