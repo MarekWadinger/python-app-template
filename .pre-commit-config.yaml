@@ -54,7 +54,7 @@ repos:
     hooks:
       - id: ty
         name: ty check
-        entry: uv run ty check . --error-on-warning
+        entry: uv run --frozen ty check .
         language: system
         pass_filenames: false
   # ---------------------------------------------------------------------------
@@ -64,7 +64,7 @@ repos:
     hooks:
       - id: deptry
         name: deptry
-        entry: uv run deptry .
+        entry: uv run --frozen deptry .
         language: system
         pass_filenames: false
         files: (\.py|pyproject\.toml)$

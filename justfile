@@ -163,7 +163,7 @@ lint:
 
 typecheck:
     @echo "🔎 Running type checks..."
-    uv run ty check . --error-on-warning
+    uv run ty check .
 
 format:
     @echo "🎨 Formatting code..."

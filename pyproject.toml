@@ -87,6 +87,9 @@ max-positional-args = 3  # past 3, parameters are keyword-only so callers can't 
 [tool.ruff.lint.per-file-ignores]
 "**/tests/**" = ["ANN", "ARG", "FBT", "PLC0415", "PLR2004", "S101"]
 
+[tool.ty.terminal]
+error-on-warning = true
+
 [tool.pytest.ini_options]
 minversion = "8.0"
 addopts = "-ra -q --strict-markers --strict-config"
