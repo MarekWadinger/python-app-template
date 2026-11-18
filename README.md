@@ -170,10 +170,8 @@ uv run pytest --inline-snapshot=fix
 
 The test suite includes:
 
-- Unit tests for all modules
-- Integration tests
-- Performance benchmarks
-- Type checking validation
+- A contract test that fails on any public function without `@validated`
+- A property test with [hypothesis](https://hypothesis.readthedocs.io/) and a snapshot test with inline-snapshot
 
 ## 🤝 Contributing
 
