@@ -98,11 +98,7 @@ markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",
     "integration: marks tests as integration tests",
 ]
-filterwarnings = [
-    "error",
-    "ignore::UserWarning",
-    "ignore::DeprecationWarning",
-]
+filterwarnings = ["error"]
 
 [tool.inline-snapshot]
 # A plain pytest run only reports snapshot changes; write them with --inline-snapshot=create or =fix
