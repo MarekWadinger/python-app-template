@@ -5,7 +5,7 @@ paths:
 
 # Python Standards
 
-ruff and ty enforce most of the standard; this file adds what they can't see. FastAPI and SQLModel projects also follow `~/.claude/rules/fastapi.md`.
+ruff and ty enforce most of the standard; this file adds what they can't see. Tests also follow [python-tests.md](python-tests.md); FastAPI and SQLModel projects also follow `~/.claude/rules/fastapi.md`.
 
 ## Tools
 
@@ -38,9 +38,6 @@ Stdlib first; add a dependency only when it removes real code. One tool per job:
 | Web API | `fastapi` | `flask` |
 | Logging | `logfire` | |
 | Time zones | `zoneinfo` | `pytz` (wrong offsets via `tzinfo=`) |
-| Tests | `pytest`, `pytest-cov`, `pytest-asyncio` for async code | |
-| Property tests | `hypothesis` for parsers, money and date math: it generates the edge cases and shrinks a failure to the smallest one | |
-| Snapshot tests | `inline-snapshot` for parser output: `--inline-snapshot=fix` rewrites the expected value in the test, you review it in the diff | |
 | Dependency check | `deptry`, run by pre-commit and the lint target: flags imports not declared in [`pyproject.toml`](../../pyproject.toml), and declared packages never imported | |
 
 **Pydantic** validates data you don't control, at the boundary where it enters: an external API's response, a file someone else writes, input no framework has validated yet. One model per document kind, so a changed shape fails there, naming the field. Third-party data uses `extra="ignore"` (tolerate new fields); your own config uses `extra="forbid"` (catch typos). `TypeAdapter` over a `TypedDict` keeps one definition for ty and runtime. Not for data you build yourself (outgoing payloads, internal values): types and tests cover that.
