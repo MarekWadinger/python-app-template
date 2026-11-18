@@ -108,6 +108,7 @@ format-command = "ruff format --stdin-filename {filename}"
 
 [tool.coverage.run]
 source = ["src"]
+branch = true
 omit = [
     "*/tests/*",
     "*/test_*",
