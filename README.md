@@ -194,6 +194,8 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 
 ### Code Style
 
+The Python standard lives in [.claude/rules/python-standards.md](.claude/rules/python-standards.md): which tools enforce it, what they can't check, and which packages to use.
+
 - **Variable Naming**: Use snake_case for variables, PascalCase for classes
 - **Function Naming**: Use descriptive names, avoid abbreviations
 - **Docstrings**: Use Google-style docstrings for all functions and classes
