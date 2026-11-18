@@ -192,7 +192,7 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 
 ### Code Style
 
-The Python standard lives in [.claude/rules/python-standards.md](.claude/rules/python-standards.md): which tools enforce it, what they can't check, and which packages to use.
+The Python standard lives in [.claude/rules/python.md](.claude/rules/python.md) (which tools enforce it, what they can't check, which packages to use) and, for tests, [.claude/rules/python-tests.md](.claude/rules/python-tests.md).
 
 - **Variable Naming**: Use snake_case for variables, PascalCase for classes
 - **Function Naming**: Use descriptive names, avoid abbreviations
