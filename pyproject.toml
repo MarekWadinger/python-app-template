@@ -77,6 +77,9 @@ ignore = [
     "RUF001", "RUF002", "RUF003",  # typographic characters (› – …) in text are deliberate
 ]
 
+[tool.ruff.lint.pylint]
+max-positional-args = 3  # past 3, parameters are keyword-only so callers can't swap them
+
 [tool.ruff.lint.per-file-ignores]
 "**/tests/**" = ["ANN", "ARG", "FBT", "PLC0415", "PLR2004", "S101"]
 

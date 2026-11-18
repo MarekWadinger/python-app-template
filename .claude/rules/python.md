@@ -16,7 +16,7 @@ ruff and ty enforce most of the standard; this file adds what they can't see. Te
 ## What the tools can't check
 
 - **Types carry meaning.** No bare `dict`, `list[dict]` or `Any`: a `TypedDict` for data crossing a boundary (JSON, API documents, tool results), a frozen dataclass inside, `Literal` for a closed set of strings. Python 3.12 syntax, no `from __future__ import annotations`.
-- **Signatures can't be misused.** Past 3 parameters, the rest are keyword-only. A function never silently ignores an input: reject combinations it can't honour.
+- **A function never silently ignores an input:** reject combinations it can't honour. (Keyword-only past 3 parameters is enforced by ruff.)
 - **Errors are types.** Raise the package's own exception with a message saying what to do next; subclass it when callers branch, never branch on `str(e)`. Wrap infrastructure errors (`CalledProcessError`, `OSError`, HTTP) at the boundary.
 - **No silent fallbacks.** `.get(key, default)` on data you require hides a broken input: index it or validate it.
 - **Money is `Decimal`** with an explicit `rounding=`, never `float`. One value, one format.
