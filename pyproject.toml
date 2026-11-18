@@ -36,6 +36,8 @@ lint = [
     "ty>=0.0.95",
 ]
 test = [
+    "hypothesis>=6.170.15",
+    "inline-snapshot>=0.37.0",
     "pytest>=9.2.0",
     "pytest-cov>=4.0.0",
 ]
@@ -91,6 +93,12 @@ filterwarnings = [
     "ignore::UserWarning",
     "ignore::DeprecationWarning",
 ]
+
+[tool.inline-snapshot]
+# A plain pytest run only reports snapshot changes; write them with --inline-snapshot=create or =fix
+default-flags = ["report"]
+default-flags-tui = ["report"]
+format-command = "ruff format --stdin-filename {filename}"
 
 [tool.coverage.run]
 source = ["src"]

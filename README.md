@@ -162,6 +162,12 @@ Run tests with coverage:
 just test-cov
 ```
 
+A plain run never rewrites a test. When an [inline-snapshot](https://15r10nk.github.io/inline-snapshot/) value changes on purpose, rewrite it and review the diff:
+
+```bash
+uv run pytest --inline-snapshot=fix
+```
+
 The test suite includes:
 
 - Unit tests for all modules
