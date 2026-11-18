@@ -5,7 +5,7 @@ paths:
 
 # Python Standards
 
-ruff and ty enforce most of the standard; this file adds what they can't see. Tests also follow [python-tests.md](python-tests.md); FastAPI and SQLModel projects also follow `~/.claude/rules/fastapi.md`.
+ruff and ty enforce most of the standard; this file adds what they can't see. FastAPI and SQLModel projects also follow `~/.claude/rules/fastapi.md`.
 
 ## Tools
 

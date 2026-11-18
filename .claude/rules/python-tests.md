@@ -7,7 +7,7 @@ paths:
 
 # Python Test Standards
 
-Tests also follow [python.md](python.md). The pytest, coverage and inline-snapshot config is in the repo's [`pyproject.toml`](../../pyproject.toml).
+The pytest, coverage and inline-snapshot config is in the repo's [`pyproject.toml`](../../pyproject.toml).
 
 - **Tools:** `pytest` and `pytest-cov`; `pytest-asyncio` with `@pytest.mark.asyncio` for async code.
 - **Names:** `tests/test_<module>.py`, and `test_<what>_<condition>_<expected>()` for functions.
