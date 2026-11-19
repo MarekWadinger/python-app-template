@@ -2,6 +2,12 @@
 
 This changelog is maintained automatically by [commitizen](https://commitizen-tools.github.io/commitizen/) on version bumps.
 
+## v0.7.1 (2026-11-19)
+
+### Fix
+
+- **coverage**: exclude only typing.Protocol classes (#36)
+
 ## v0.7.0 (2026-11-18)
 
 ### Feat

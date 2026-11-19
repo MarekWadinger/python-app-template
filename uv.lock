@@ -1126,7 +1126,7 @@ wheels = [
 
 [[package]]
 name = "python-project-template"
-version = "0.7.0"
+version = "0.7.1"
 source = { editable = "." }
 default-groups = "all"
 dependencies = [
