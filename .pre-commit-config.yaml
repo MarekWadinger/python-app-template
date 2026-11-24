@@ -142,7 +142,7 @@ repos:
   # Commit message
   # ---------------------------------------------------------------------------
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: v4.19.3
+    rev: v4.19.4
     hooks:
       - id: commitizen
         stages: [commit-msg]
@@ -150,7 +150,7 @@ repos:
   # Lockfile sync
   # ---------------------------------------------------------------------------
   - repo: https://github.com/astral-sh/uv-pre-commit
-    rev: 0.13.8
+    rev: 0.13.9
     hooks:
       - id: uv-sync
         args: [--frozen]
